@@ -1,5 +1,6 @@
 import React from "react";
 import { Nav } from "react-bootstrap";
+import { HashRouter, Link } from "react-router-dom";
 
 export class NavbarItem {
     text: string = '';
@@ -40,14 +41,16 @@ export class Navbar extends React.Component<NavbarProp> {
     render() {
         return (
         <Nav variant="pills">
+            <HashRouter>
             { this.state.items.map(item => {
                 return (
-                    <Nav.Link href={ item.link }>
+                    <Link to={ item.link } className="nav-link">
                         { item.text }
-                    </Nav.Link>
+                    </Link>
                 );
             })
             }
+            </HashRouter>
         </Nav>
         );
     }
