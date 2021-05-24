@@ -1,16 +1,23 @@
 import React from 'react';
-import './Home.css';
-import { Container } from 'react-bootstrap';
+import { Card, Container } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUpload } from '@fortawesome/free-solid-svg-icons'
+import { faHome } from '@fortawesome/free-solid-svg-icons'
 
-function Home() {
-  return (
-    <Container>
-      <FontAwesomeIcon icon={faUpload}></FontAwesomeIcon>
-      Home
-    </Container>
-  );
+export default class Contact extends React.Component {
+    render() {
+        return (
+            <Container>
+                <Card>
+                    <Card.Body>
+                    <FontAwesomeIcon icon={faHome}></FontAwesomeIcon>
+                    Home details
+                    </Card.Body>
+                    <Card.Text>
+                       Home details will be show here...
+                    </Card.Text>
+                </Card>
+             
+            </Container>
+        );
+    }
 }
-
-export default Home;
