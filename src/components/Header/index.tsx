@@ -3,6 +3,15 @@ import Switch from 'react-switch';
 import { ThemeContext } from 'styled-components';
 import { shade } from 'polished';
 import { Container } from './styles';
+import { Navbar, NavbarItem } from '../Navbar/Navbar';
+
+const navbarItems = [
+  new NavbarItem("Početna stranica", "/"),
+  new NavbarItem("Informacije", "/info/"),
+  new NavbarItem("Prijavi se", "/customer/login/"),
+  new NavbarItem("Kategorija 1", "/category/1/"),
+  new NavbarItem("Kategorija 5", "/category/5/"),
+]
 
 interface Props {
   toggleTheme(): void;
@@ -13,7 +22,7 @@ const Header: React.FC<Props> = ({ toggleTheme }) => {
 
   return (
     <Container>
-      Online sales of technical products
+      <Navbar items={ navbarItems }></Navbar>
       <Switch
         onChange={toggleTheme}
         checked={title === 'dark'}
