@@ -7,32 +7,22 @@ import 'jquery/dist/jquery.js';
 import 'popper.js/dist/popper.js';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import '@fortawesome/fontawesome-free/css/fontawesome.min.css';
-import { Navbar, NavbarItem } from './components/Navbar/Navbar';
 import { HashRouter, Switch, Route } from 'react-router-dom';
-
 import Contact from './components/Contact/Contact';
-import Login from './components/Login/Login';
+//import Login from './components/Login/Login';
 import Category from './components/Category/Category';
 import LightDarkMode from './LightDarkMode';
 import Home from './components/Home/Home';
-
-const navbarItems = [
-  new NavbarItem("Početna stranica", "/"),
-  new NavbarItem("Informacije", "/info/"),
-  new NavbarItem("Prijavi se", "/customer/login/"),
-  new NavbarItem("Kategorija 1", "/category/1/"),
-  new NavbarItem("Kategorija 5", "/category/5/"),
-]
+import CustomerLogin from './components/Login/Login';
 
 ReactDOM.render(
   <React.StrictMode>
     <LightDarkMode></LightDarkMode>
-    <Navbar items={ navbarItems }></Navbar>
     <HashRouter>
       <Switch>
         <Route exact path="/" component = { Home }></Route>
-        <Route exact path="/info" component = { Contact }></Route>
-        <Route exact path="/customer/login" component = { Login }></Route>
+        <Route exact path="/contact" component = { Contact }></Route>
+        <Route exact path="/customer/login" component = { CustomerLogin }></Route>
         <Route exact path="/category/:id" component = { Category }></Route>
       </Switch>
     </HashRouter>

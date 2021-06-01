@@ -1,0 +1,25 @@
+.title {
+    margin-top: 1%;
+    display: inline-block;
+    margin-left: 35%;
+    margin-right: 50%;
+    width: 30%;
+    padding: 5px 15px;
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: border;
+}
+
+.form {
+    background-image: linear-gradient(#FFF, #E296B2);
+    margin-top: 5%;
+    margin-left: 65%;
+    margin-right: 50%;
+    width: 100%;
+    border: #FFF;
+}
+
+.label {
+    font-size: 20px;
+}

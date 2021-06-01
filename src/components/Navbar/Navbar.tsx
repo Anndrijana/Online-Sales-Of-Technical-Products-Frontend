@@ -1,6 +1,8 @@
 import React from "react";
-import { Nav } from "react-bootstrap";
+import { Nav, Image } from "react-bootstrap";
 import { HashRouter, Link } from "react-router-dom";
+import './styles.css';
+import Img from './buy.png';
 
 export class NavbarItem {
     text: string = '';
@@ -41,6 +43,7 @@ export class Navbar extends React.Component<NavbarProp> {
     render() {
         return (
         <Nav variant="pills">
+            <Image className="img" src={ Img } />
             <HashRouter>
             { this.state.items.map(item => {
                 return (

@@ -1,19 +1,22 @@
 import React from 'react';
-import { Col, Button, Card, Container, Form, Alert } from 'react-bootstrap';
+import { Container, Form, Card, Col, Alert, Image  } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import api, { ApiResponse, saveToken } from '../../api/api';
-import { Redirect } from 'react-router-dom';
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
+import api, { ApiResponse, saveToken, saveRefreshToken } from '../../api/api';
+import { Redirect } from 'react-router-dom';
+import { Button } from './styles';
+import Img from './login.jpg';
+import './styles.css';
 
-interface LoginState {
+interface CustomerLoginState {
     email: string;
     password: string;
     errorMessage: string;
     isLoggedIn: boolean;
 }
 
-export default class Login extends React.Component {
-    state: LoginState;
+export default class CustomerLogin extends React.Component {
+    state: CustomerLoginState;
 
     constructor(props: Readonly<{}>) {
         super(props);
@@ -61,7 +64,7 @@ export default class Login extends React.Component {
         )
         .then((res: ApiResponse) => {
             if (res.status === 'error') {
-               console.log(res.data);
+                this.setErrorMessage('System error... Try again!');
 
                 return;
             }
@@ -80,7 +83,8 @@ export default class Login extends React.Component {
                     return;
                 }
 
-                saveToken(res.data.token);
+                saveToken('customer', res.data.token);
+                saveRefreshToken('customer', res.data.refreshToken);
 
                 this.setLogginState(true);
             }
@@ -90,46 +94,61 @@ export default class Login extends React.Component {
     render() {
         if (this.state.isLoggedIn === true) {
             return (
-                <Redirect to="/" />
+                <Redirect to="/customer/login" />
             );
         }
-        
+
         return (
             <Container>
+            
+                <Col md={ { span: 5, offset: 17 } }>
+                    <Card className="form">
 
-                <Col md={ { span: 6, offset: 3 } }>
-                    <Card>
-                        <Card.Body>
-                            <Card.Title>
-                                <FontAwesomeIcon icon={ faSignInAlt } /> User Login
-                            </Card.Title>
+                        <Card.Title className="title">
+                                <FontAwesomeIcon icon={ faSignInAlt } color="#c62f66"/> Sign In
+                        </Card.Title>
+                    
+                        <Image src= {Img} roundedCircle />
+            
+                        <Card.Body>        
+
                             <Form>
+                            
                                 <Form.Group>
-                                    <Form.Label htmlFor="email">E-mail:</Form.Label>
-                                    <Form.Control type="email" id="email"
+        
+                                    <Form.Label className="label" htmlFor="email">E-mail address:</Form.Label>
+                                    <Form.Control type="email" id="email" placeholder= "📧 Type your e-mail address" 
                                                     value={ this.state.email }
                                                     onChange={ event => this.formInputChanged(event as any) } />
+                                    <Form.Text className="text-muted">
+                                        We'll never share your e-mail with anyone else.
+                                    </Form.Text>
+                               
                                 </Form.Group>
+                                
                                 <Form.Group>
-                                    <Form.Label htmlFor="password">Password:</Form.Label>
-                                    <Form.Control type="password" id="password"
+                                    <Form.Label className="label" htmlFor="password">Password:</Form.Label>
+                                    <Form.Control type="text" id="password" placeholder="&#x1F513; Type your password"
                                                     value={ this.state.password }
-                                                    onChange={ event => this.formInputChanged(event as any) } />
+                                                    onChange={ event => this.formInputChanged(event as any) }/>
                                 </Form.Group>
-                                <Form.Group>
-                                    <Button variant="primary"
-                                            onClick={ () => this.doLogin() }>
-                                        Log in
-                                    </Button>
-                                </Form.Group>
+
+                                <Button
+                                    onClick={ () => this.doLogin() }>
+                                    Sign In
+                                </Button>
+                                
                             </Form>
+
                             <Alert variant="danger"
                                    className={ this.state.errorMessage ? '' : 'd-none' }>
                                 { this.state.errorMessage }
                             </Alert>
+
                         </Card.Body>
                     </Card>
                 </Col>
+
             </Container>
         );
     }

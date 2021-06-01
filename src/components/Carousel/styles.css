@@ -1,0 +1,22 @@
+.left {
+    background-color: Transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+    color: #C62E65;
+    font-size: 80px;
+    margin-inline-start: 350px;
+}
+
+.right {
+    background-color: Transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+    color: #C62E65;
+    font-size: 80px;
+}

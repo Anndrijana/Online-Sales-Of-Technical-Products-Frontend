@@ -6,11 +6,11 @@ import { Container } from './styles';
 import { Navbar, NavbarItem } from '../Navbar/Navbar';
 
 const navbarItems = [
-  new NavbarItem("Početna stranica", "/"),
-  new NavbarItem("Informacije", "/info/"),
-  new NavbarItem("Prijavi se", "/customer/login/"),
-  new NavbarItem("Kategorija 1", "/category/1/"),
-  new NavbarItem("Kategorija 5", "/category/5/"),
+  new NavbarItem("Home", "/"),
+  new NavbarItem("Contact", "/contact/"),
+  new NavbarItem("Sign In", "/customer/login/"),
+  new NavbarItem("Category 1", "/category/1/"),
+  new NavbarItem("Category 5", "/category/5/"),
 ]
 
 interface Props {
