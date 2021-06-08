@@ -3,7 +3,7 @@ import { Container, Card, Row, Col } from 'react-bootstrap';
 import { faListAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import CategoryType from '../../types/CategoryType';
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect, Link  } from 'react-router-dom';
 import api, { ApiResponse } from '../../api/api';
 import CategoryDto from '../../dtos/CategoryDto';
 
@@ -49,6 +49,7 @@ class Categories extends React.Component {
             return {
                 categoryId: category.categoryId,
                 categoryName: category.categoryName,
+                imagePath: category.imagePath,
                 items: [],
             };
         });
@@ -78,10 +79,10 @@ class Categories extends React.Component {
         return (
             <Container>
 
-                <Card>
+                <Card className="p">
                     <Card.Body>
-                        <Card.Title>
-                            <FontAwesomeIcon icon={ faListAlt } /> Top level categories
+                        <Card.Title className="p">
+                            <FontAwesomeIcon icon={ faListAlt } color="#C62E65"/> List of all major categories
                         </Card.Title>
 
                         <Row>
@@ -95,15 +96,16 @@ class Categories extends React.Component {
 
     private singleCategory(category: CategoryType) {
         return (
-            <Col lg="3" md="4" sm="6" xs="12" key={ category.categoryId }>
+            <Col lg="3" md="3" sm="6" xs="12" key={ category.categoryId }>
                 <Card className="mb-3">
+                <Card.Img variant="top" src={ category.imagePath } width="300" height="170"/>
                     <Card.Body>
                         <Card.Title as="p">
                             { category.categoryName }
                         </Card.Title>
                         <Link to={ `/category/${ category.categoryId }` }
-                              className="btn btn-primary btn-block btn-sm">
-                            Open category
+                              className="btn">
+                            Open
                         </Link>
                     </Card.Body>
                 </Card>
