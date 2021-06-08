@@ -14,7 +14,7 @@ text-align: center;
 text-decoration: border;
 outline: none;
 color: #fff;
-background-color: #c62f66;
+background-color: #149dff;
 border: none;
 border-radius: 10px;
 box-shadow: 0 9px #999;

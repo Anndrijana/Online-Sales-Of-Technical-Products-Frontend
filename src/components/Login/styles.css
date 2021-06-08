@@ -14,12 +14,21 @@
 .form {
     background-image: linear-gradient(#FFF, #E296B2);
     margin-top: 5%;
-    margin-left: 65%;
+    margin-left: 60%;
     margin-right: 50%;
-    width: 100%;
+    width: 110%;
     border: #FFF;
 }
 
 .label {
     font-size: 20px;
+    text-align: center;
+}
+
+.p {
+    text-align: center;
+}
+
+.link {
+    color: #C62E65;
 }

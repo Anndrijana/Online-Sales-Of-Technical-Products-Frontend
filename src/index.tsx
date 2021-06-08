@@ -9,11 +9,11 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 import '@fortawesome/fontawesome-free/css/fontawesome.min.css';
 import { HashRouter, Switch, Route } from 'react-router-dom';
 import Contact from './components/Contact/Contact';
-//import Login from './components/Login/Login';
-import Category from './components/Category/Category';
 import LightDarkMode from './LightDarkMode';
 import Home from './components/Home/Home';
 import CustomerLogin from './components/Login/Login';
+import { CustomerRegistration } from './components/Registration/Registration';
+import Categories from './components/Categories/Categories';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -23,7 +23,8 @@ ReactDOM.render(
         <Route exact path="/" component = { Home }></Route>
         <Route exact path="/contact" component = { Contact }></Route>
         <Route exact path="/customer/login" component = { CustomerLogin }></Route>
-        <Route exact path="/category/:id" component = { Category }></Route>
+        <Route exact path="/customer/register" component = { CustomerRegistration }></Route>
+        <Route exact path="/categories" component = { Categories }></Route>
       </Switch>
     </HashRouter>
   </React.StrictMode>,

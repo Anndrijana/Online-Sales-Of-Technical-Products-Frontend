@@ -3,7 +3,7 @@ import { ApiConfig } from '../config/api.config';
 
 export default function api(
     path: string,
-    method: 'get' | 'post' | 'patch' | 'delete',
+    method: 'get' | 'put' | 'post' | 'patch' | 'delete',
     body: any | undefined,
     role: 'customer' | 'administrator' = 'customer',
 ) {
@@ -157,7 +157,7 @@ export function getIdentity(role: 'customer' | 'administrator'): string {
     return 'Berer ' + token;
 }
 
-export function removeTokenData(role: 'user' | 'administrator') {
+export function removeTokenData(role: 'customer' | 'administrator') {
     localStorage.removeItem('api_token' + role);
     localStorage.removeItem('api_refresh_token' + role);
     localStorage.removeItem('api_identity' + role);

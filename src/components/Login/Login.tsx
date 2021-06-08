@@ -7,6 +7,7 @@ import { Redirect } from 'react-router-dom';
 import { Button } from './styles';
 import Img from './login.jpg';
 import './styles.css';
+import { Link } from 'react-router-dom';
 
 interface CustomerLoginState {
     email: string;
@@ -64,7 +65,7 @@ export default class CustomerLogin extends React.Component {
         )
         .then((res: ApiResponse) => {
             if (res.status === 'error') {
-                this.setErrorMessage('System error... Try again!');
+                this.setErrorMessage('The field must not be empty... Try again!');
 
                 return;
             }
@@ -74,8 +75,8 @@ export default class CustomerLogin extends React.Component {
                     let message = '';
 
                     switch (res.data.statusCode) {
-                        case -3001: message = 'Unkwnon e-mail!'; break;
-                        case -3002: message = 'Bad password!'; break;
+                        case -3003: message = 'You entered an unknown email!'; break;
+                        case -3004: message = 'You entered the wrong password!'; break;
                     }
 
                     this.setErrorMessage(message);
@@ -94,7 +95,7 @@ export default class CustomerLogin extends React.Component {
     render() {
         if (this.state.isLoggedIn === true) {
             return (
-                <Redirect to="/customer/login" />
+                <Redirect to="/" />
             );
         }
 
@@ -128,10 +129,15 @@ export default class CustomerLogin extends React.Component {
                                 
                                 <Form.Group>
                                     <Form.Label className="label" htmlFor="password">Password:</Form.Label>
-                                    <Form.Control type="text" id="password" placeholder="&#x1F513; Type your password"
+                                    <Form.Control type="password" id="password" placeholder="&#x1F513; Type your password"
                                                     value={ this.state.password }
                                                     onChange={ event => this.formInputChanged(event as any) }/>
                                 </Form.Group>
+
+                                <p className="p">
+                                    Not a member?<br/>
+                                    <Link className="link" to='/customer/register'>Sign Up now</Link>
+                                </p>
 
                                 <Button
                                     onClick={ () => this.doLogin() }>

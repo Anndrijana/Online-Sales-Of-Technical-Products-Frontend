@@ -9,8 +9,8 @@ const navbarItems = [
   new NavbarItem("Home", "/"),
   new NavbarItem("Contact", "/contact/"),
   new NavbarItem("Sign In", "/customer/login/"),
-  new NavbarItem("Category 1", "/category/1/"),
-  new NavbarItem("Category 5", "/category/5/"),
+  new NavbarItem("Sign Up", "/customer/register/"),
+  new NavbarItem("All categories", "/categories"),
 ]
 
 interface Props {
