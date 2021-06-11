@@ -1,8 +1,8 @@
 export default class ProductType {
-    id?: number;
-    name?: string;
+    productId?: number;
+    productName?: string;
     shortDesc?: string;
     detailedDesc?: string;
     price?: number;
-    imageUrl?: number;
+    imageUrl?: string;
 }

@@ -4,12 +4,17 @@ import { ThemeContext } from 'styled-components';
 import { shade } from 'polished';
 import { Container } from './styles';
 import { Navbar, NavbarItem } from '../Navbar/Navbar';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSignInAlt, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+
+const signIn =  (<FontAwesomeIcon icon={ faSignInAlt } size="lg" color="#FFF"/>) as any;
+const signUp =  (<FontAwesomeIcon icon={ faUserPlus } size="lg" color="#FFF"/>) as any;
 
 const navbarItems = [
   new NavbarItem("Home", "/"),
   new NavbarItem("Contact", "/contact/"),
-  new NavbarItem("Sign In", "/customer/login/"),
-  new NavbarItem("Sign Up", "/customer/register/"),
+  new NavbarItem(signIn, "/customer/login/"),
+  new NavbarItem(signUp, "/customer/register/"),
   new NavbarItem("All categories", "/categories"),
 ]
 

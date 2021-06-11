@@ -50,7 +50,6 @@ class Categories extends React.Component {
                 categoryId: category.categoryId,
                 categoryName: category.categoryName,
                 imagePath: category.imagePath,
-                items: [],
             };
         });
 
