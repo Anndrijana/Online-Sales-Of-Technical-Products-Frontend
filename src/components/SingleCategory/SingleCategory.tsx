@@ -1,11 +1,13 @@
 import React from "react";
-import { Card, Col, Container, Row } from "react-bootstrap";
+import { Card, Col, Container, Form, Row, Button } from "react-bootstrap";
 import api, { ApiResponse } from '../../api/api';
 import CategoryType from "../../types/CategoryType";
 import ProductType from "../../types/ProductType";
 import { Link, Redirect } from 'react-router-dom';
 import CategoryDto from '../../dtos/CategoryDto';
 import ProductDto from "../../dtos/ProductDto";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 interface CategoryProp {
     match: {
@@ -21,6 +23,12 @@ interface CategoryState {
     category?: CategoryType;
     subcategories?: CategoryType[];
     products?: ProductType[];
+    filters: {
+        keywords: string;
+        priceMin: number;
+        priceMax: number;
+        order: "name asc" | "name desc" | "price asc" | "price desc";
+    };
 }
 
 export default class SingleCategory extends React.Component<CategoryProp> {
@@ -31,6 +39,12 @@ export default class SingleCategory extends React.Component<CategoryProp> {
         
         this.state = {
             isUserLoggedIn: true,
+            filters: {
+                keywords: '',
+                priceMin: 0.01,
+                priceMax: 100000,
+                order: "price asc",
+            }
         }
     }
 
@@ -80,13 +94,105 @@ export default class SingleCategory extends React.Component<CategoryProp> {
                         <Card.Title className="p">
                             { this.state.category?.categoryName }
                         </Card.Title>
-                        {  this.showSubcategories() }
-                        { this.showProducts() }
+                            {  this.showSubcategories() }
+                        <Row>
+                        
+                        <Col lg="9">
+                            { this.showProducts() }
+                        </Col>
+                            
+                        </Row>
+                        
                     </Card.Body>
                    
                 </Card>
              
             </Container>
+        );
+    }
+
+    private setNewFilter(newFilter: any) {
+        this.setState(Object.assign(this.state, {
+            filter: newFilter,
+        }));
+    }
+
+    private keywordsFilterChanged(event: React.ChangeEvent<HTMLInputElement>) {
+        this.setNewFilter(Object.assign(this.state.filters, {
+            keywords: event.target.value,
+        }));
+    }
+
+    private priceMinFilterChanged(event: React.ChangeEvent<HTMLInputElement>) {
+        this.setNewFilter(Object.assign(this.state.filters, {
+            priceMin: Number(event.target.value),
+        }));
+    }
+
+    private priceMaxFilterChanged(event: React.ChangeEvent<HTMLInputElement>) {
+        this.setNewFilter(Object.assign(this.state.filters, {
+            priceMax: Number(event.target.value),
+        }));
+    }
+
+    private OrderFilterChanged(event: React.ChangeEvent<HTMLSelectElement>) {
+        this.setNewFilter(Object.assign(this.state.filters, {
+            order: event.target.value,
+        }));
+    }
+
+    private applyFilters() {
+        this.getCategoryData();
+    }
+
+    private filters() {
+        return (
+            <>
+            <Card className="filters">
+            <Form.Group>
+                <Form.Control className="fcc" type="text"  id="keywords" placeholder="Search keywords"
+                value={ this.state.filters.keywords }
+                onChange= {(e) => this.keywordsFilterChanged(e as any)}></Form.Control>
+            </Form.Group>
+
+            <Form.Group>
+                    <Row>
+                        <Col xs="12" sm="6" lg="6">
+                            <Form.Label className="l" htmlFor="priceMin">Minimum price:</Form.Label>
+                            <Form.Control className="fc" type="number" id="priceMin"
+                                          step="0.01" min="0.01" max="99999.99"
+                                          value={ this.state.filters.priceMin }
+                                          onChange={ (e) => this.priceMinFilterChanged(e as any) } />
+                        </Col>
+                        <Col xs="12" sm="6" lg="6">
+                        <Form.Label className="l" htmlFor="priceMax">Maximum price:</Form.Label>
+                            <Form.Control className="fc" type="number" id="priceMax"
+                                          step="0.01" min="0.02" max="100000"
+                                          value={ this.state.filters.priceMax }
+                                          onChange={ (e) => this.priceMaxFilterChanged(e as any) } />
+                        </Col>
+                    </Row>
+            </Form.Group>
+
+            <Form.Group>
+                    <Form.Control className="fccc" as="select" id="sortOrder"
+                                  value={ this.state.filters.order }
+                                  onChange={ (e) => this.OrderFilterChanged(e as any) }>
+                        <option value="name asc">Sort ascending by name</option>
+                        <option value="name desc">Sort descending by name</option>
+                        <option value="price asc">Sort ascending by price</option>
+                        <option value="price desc">Sort descending by price</option>
+                    </Form.Control>
+            </Form.Group>
+
+            <Form.Group>
+                    <Button variant="primary" block onClick={ () => this.applyFilters() }>
+                        <FontAwesomeIcon icon={ faSearch } /> 
+                    </Button>
+            </Form.Group>
+            </Card>
+                
+            </>
         );
     }
 
@@ -122,32 +228,52 @@ export default class SingleCategory extends React.Component<CategoryProp> {
     }
 
    private showProducts() {
-    
+
+    if (this.state.products?.length !== 0) {
         return (
+            <Container>
+            
+            <Card className="width">
             <Row>
+            
+
+            <Col lg="3">
+                { this.filters() }
+            </Col>
+            
+
+           
                 { this.state.products?.map(this.singleProduct) }
+            
+           
             </Row>
+
+            </Card>
+
+            </Container>
         );
     }
+}
 
    private singleProduct(product: ProductType) {
         return (
-            <Col lg="3" md="6" sm="6" xs="12" key={ product.productId }>
-                <Card className="mb-3">
-                    <Card.Header>
+            <Col lg="3" key={ product.productId }>
+               
+                <Card className="mbb-3">
+                    <Card.Header className="card-img">
                     <Card.Img variant="top" src={ product.imageUrl } width="300" height="170"/>
                     </Card.Header>
                 
                     <Card.Body>
-                        <Card.Title as="p">
-                            { product.shortDesc }
+                        <Card.Title as="p" className="name">
+                            { product.productName }
                         </Card.Title>
-                        <Card.Text>
-                            Price: { Number(product.price).toFixed(2) } EUR
+                        <Card.Text className="price">
+                            { Number(product.price).toFixed(2) } EUR
                         </Card.Text>
                         <Link to={ `/product/${ product.productId }` }
-                              className="btn">
-                            Open
+                              className="btn btn-width">
+                            See more
                         </Link>
                     </Card.Body>
                 </Card>
@@ -192,14 +318,16 @@ export default class SingleCategory extends React.Component<CategoryProp> {
            this.setSubcategories(subcategories);
         });
 
+        const orderParts = this.state.filters.order.split(' ');
+
         api('api/product/search/', 'post', {
             categoryId: Number(this.props.match.params.id),
-            keywords: "",
-            priceMin: 0,
-            priceMax: Number.MAX_SAFE_INTEGER,
+            keywords: this.state.filters.keywords,
+            priceMin: this.state.filters.priceMin,
+            priceMax: this.state.filters.priceMax,
             features: [ ],
-            orderBy: "price",
-            orderDirection: "ASC",
+            orderBy: orderParts[0],
+            orderDirection: orderParts[1].toUpperCase(),
         })
 
         .then((res: ApiResponse) => {
