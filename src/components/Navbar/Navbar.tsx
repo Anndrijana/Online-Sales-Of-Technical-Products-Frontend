@@ -3,6 +3,7 @@ import { Nav, Image } from "react-bootstrap";
 import { HashRouter, Link } from "react-router-dom";
 import './styles.css';
 import Img from './buy.png';
+import ShoppingCart from "../ShoppingCart/ShoppingCart";
 
 export class NavbarItem {
     text: string = '';
@@ -53,6 +54,7 @@ export class Navbar extends React.Component<NavbarProp> {
                 );
             })
             }
+            <ShoppingCart></ShoppingCart>
             </HashRouter>
         </Nav>
         );

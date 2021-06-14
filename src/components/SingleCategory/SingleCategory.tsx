@@ -7,7 +7,8 @@ import { Link, Redirect } from 'react-router-dom';
 import CategoryDto from '../../dtos/CategoryDto';
 import ProductDto from "../../dtos/ProductDto";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faSearchMinus } from "@fortawesome/free-solid-svg-icons";
+import SingleProduct from "../SingleProduct/SingleProduct";
 
 interface CategoryProp {
     match: {
@@ -41,7 +42,7 @@ export default class SingleCategory extends React.Component<CategoryProp> {
             isUserLoggedIn: true,
             filters: {
                 keywords: '',
-                priceMin: 0.01,
+                priceMin: 0,
                 priceMax: 100000,
                 order: "price asc",
             }
@@ -149,6 +150,18 @@ export default class SingleCategory extends React.Component<CategoryProp> {
         return (
             <>
             <Card className="filters">
+            
+            <Form.Group>
+                    <Form.Control className="fccc" as="select" id="sortOrder"
+                                  value={ this.state.filters.order }
+                                  onChange={ (e) => this.OrderFilterChanged(e as any) }>
+                        <option value="name asc">Sort ascending by name</option>
+                        <option value="name desc">Sort descending by name</option>
+                        <option value="price asc">Sort ascending by price</option>
+                        <option value="price desc">Sort descending by price</option>
+                    </Form.Control>
+            </Form.Group>
+
             <Form.Group>
                 <Form.Control className="fcc" type="text"  id="keywords" placeholder="Search keywords"
                 value={ this.state.filters.keywords }
@@ -175,19 +188,8 @@ export default class SingleCategory extends React.Component<CategoryProp> {
             </Form.Group>
 
             <Form.Group>
-                    <Form.Control className="fccc" as="select" id="sortOrder"
-                                  value={ this.state.filters.order }
-                                  onChange={ (e) => this.OrderFilterChanged(e as any) }>
-                        <option value="name asc">Sort ascending by name</option>
-                        <option value="name desc">Sort descending by name</option>
-                        <option value="price asc">Sort ascending by price</option>
-                        <option value="price desc">Sort descending by price</option>
-                    </Form.Control>
-            </Form.Group>
-
-            <Form.Group>
-                    <Button variant="primary" block onClick={ () => this.applyFilters() }>
-                        <FontAwesomeIcon icon={ faSearch } /> 
+                    <Button className="btn" block onClick={ () => this.applyFilters() }>
+                        <FontAwesomeIcon icon={ faSearchMinus } /> 
                     </Button>
             </Form.Group>
             </Card>
@@ -256,29 +258,9 @@ export default class SingleCategory extends React.Component<CategoryProp> {
 }
 
    private singleProduct(product: ProductType) {
-        return (
-            <Col lg="3" key={ product.productId }>
-               
-                <Card className="mbb-3">
-                    <Card.Header className="card-img">
-                    <Card.Img variant="top" src={ product.imageUrl } width="300" height="170"/>
-                    </Card.Header>
-                
-                    <Card.Body>
-                        <Card.Title as="p" className="name">
-                            { product.productName }
-                        </Card.Title>
-                        <Card.Text className="price">
-                            { Number(product.price).toFixed(2) } EUR
-                        </Card.Text>
-                        <Link to={ `/product/${ product.productId }` }
-                              className="btn btn-width">
-                            See more
-                        </Link>
-                    </Card.Body>
-                </Card>
-            </Col>
-        );
+       return (
+           <SingleProduct product={product}></SingleProduct>
+       );
     }
 
     componentDidMount() {

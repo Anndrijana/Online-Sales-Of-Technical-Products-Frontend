@@ -1,5 +1,19 @@
 .nav-link {
+    color: rgb(255, 255, 255);
+    border: none;
+}
+
+.nav-link:hover {
+    color: rgb(255, 255, 255);
+    border-radius: 50%;
+    background-color: #8C70A8;
+}
+
+.nav-link:active, .nav-link:focus {
+    text-decoration: none !important;
     color: white;
+    border-radius: 50%;
+    background-color: #8C70A8;
 }
 
 .img {

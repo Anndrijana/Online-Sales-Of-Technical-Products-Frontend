@@ -5,17 +5,18 @@ import { shade } from 'polished';
 import { Container } from './styles';
 import { Navbar, NavbarItem } from '../Navbar/Navbar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignInAlt, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faSignInAlt, faUserPlus, faListOl } from '@fortawesome/free-solid-svg-icons';
 
 const signIn =  (<FontAwesomeIcon icon={ faSignInAlt } size="lg" color="#FFF"/>) as any;
 const signUp =  (<FontAwesomeIcon icon={ faUserPlus } size="lg" color="#FFF"/>) as any;
+const home =  (<FontAwesomeIcon icon={ faHome } size="lg" color="#FFF"/>) as any;
+const cat =  (<FontAwesomeIcon icon={ faListOl } size="lg" color="#FFF"/>) as any;
 
 const navbarItems = [
-  new NavbarItem("Home", "/"),
-  new NavbarItem("Contact", "/contact/"),
+  new NavbarItem(home, "/"),
   new NavbarItem(signIn, "/customer/login/"),
   new NavbarItem(signUp, "/customer/register/"),
-  new NavbarItem("All categories", "/categories"),
+  new NavbarItem(cat, "/categories"),
 ]
 
 interface Props {

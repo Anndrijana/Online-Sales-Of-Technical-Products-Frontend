@@ -8,7 +8,6 @@ import 'popper.js/dist/popper.js';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import '@fortawesome/fontawesome-free/css/fontawesome.min.css';
 import { HashRouter, Switch, Route } from 'react-router-dom';
-import Contact from './components/Contact/Contact';
 import LightDarkMode from './LightDarkMode';
 import Home from './components/Home/Home';
 import CustomerLogin from './components/Login/Login';
@@ -22,7 +21,6 @@ ReactDOM.render(
     <HashRouter>
       <Switch>
         <Route exact path="/" component = { Home }></Route>
-        <Route exact path="/contact" component = { Contact }></Route>
         <Route exact path="/customer/login" component = { CustomerLogin }></Route>
         <Route exact path="/customer/register" component = { CustomerRegistration }></Route>
         <Route exact path="/categories" component = { Categories }></Route>
