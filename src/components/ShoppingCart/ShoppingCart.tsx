@@ -105,33 +105,35 @@ export default class ShoppingCart extends React.Component {
                 </Nav.Link>
             </Nav.Item>
             
-            <Modal className="modal" size="lg" show= { this.state.shoppingCartVisible } onHide= { () => this.removeShoppingCart() }>
+            <Modal size="xl" show= { this.state.shoppingCartVisible } onHide= { () => this.removeShoppingCart() }>
                 <Modal.Header closeButton>
+                   
                     <Modal.Title>
-                        <FontAwesomeIcon icon={ faShoppingCart } size="lg"></FontAwesomeIcon>
+                        <strong>
+                        <FontAwesomeIcon icon={ faShoppingCart } size="lg" color="#149dff"></FontAwesomeIcon> Your shopping cart
+                        </strong>
                     </Modal.Title>
                 </Modal.Header>
 
                 <Modal.Body>
-                <Table hover size="sm">
-                            <thead>
+                <Table hover>
+                            <thead className="thead">
                                 <tr>
-                                    <th>Image</th>
-                                    <th>Product</th>
-                                    <th>Category</th>
-                                    <th className="text-right">Quantity</th>
-                                    <th className="text-right">Price</th>
-                                    <th className="text-right">Total</th>
-                                    <th></th>
+                                    <th className="th">Image</th>
+                                    <th className="th">Product</th>
+                                    <th className="th">Category</th>
+                                    <th className="th">Quantity</th>
+                                    <th className="th">Price of one product</th>
+                                    <th className="th">Total price</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 { this.state.shoppingCart?.productShoppingCarts.map(productShoppingCart => {
 
                                     return (
-                                        <tr>
+                                        <tr className="active">
                                             
-                                            <img src= { productShoppingCart.product.images[productShoppingCart.product.images?.length-1].imagePath } alt="" width="70px"></img>
+                                            <img src= { productShoppingCart.product.images[productShoppingCart.product.images?.length-1].imagePath } alt="" width="95px"></img>
                                             
                                             <td>{ productShoppingCart.product.productName }</td>
                                             <td>{ productShoppingCart.product.category.categoryName }</td>
@@ -152,10 +154,14 @@ export default class ShoppingCart extends React.Component {
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td className="text-right">
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
                                         Total:
                                     </td>
-                                    <td className="text-right">
+                                    <td>
                                         { this.calculateAllTotal() } EUR
                                     </td>
                                 </tr>
@@ -164,7 +170,7 @@ export default class ShoppingCart extends React.Component {
                 </Modal.Body>
 
                 <Modal.Footer>
-                    <Button>Order</Button>
+                    <Button className="button">Place your order</Button>
                 </Modal.Footer>
             </Modal>
             </>

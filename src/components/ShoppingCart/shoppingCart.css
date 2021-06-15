@@ -1,3 +1,68 @@
-.modal {
-    background-color: blueviolet;
+.modal-xl {
+    max-width: 1115px;
+}
+
+.modal-header {
+    border-bottom: white;
+}
+
+.modal-header .close {
+    color: #149dff;
+    border: transparent;
+    background-color: transparent;
+    font-size: 50px;
+}
+
+  .modal-title {
+      font-size: 30px;
+      margin-left: 35%;
+}
+
+.table {
+    font-size: 18px;
+    text-align: center;
+}
+
+.thead {
+    background-color: #149dff;
+    font-weight: bolder;
+    border: solid 3px #DDEEEE;
+    color: white;
+}
+
+.th {
+    vertical-align: middle;
+}
+
+tr {
+    vertical-align: middle;
+    font-weight: bold;
+}
+
+tr:hover>td {
+    background: #149dff;
+    color: #fff;
+    font-weight: bold;
+}
+
+tfoot {
+      background-color: #C62E65;
+      color: #fff;
+      border: solid 3px #DDEEEE;
+      font-size: 21px;
+}
+
+.modal-footer {
+    border-top: white;
+}
+
+.modal-footer .button {
+    background-color: #149dff;
+    margin-left: 400px;
+    margin-right: 400px;
+    margin-top: 2px;
+}
+
+.modal-footer .button:hover {
+    background-color: #C62E65;
 }
