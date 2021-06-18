@@ -1,5 +1,6 @@
 .modal-xl {
-    max-width: 1115px;
+    max-width: 1250px;
+    margin-top: 5%;
 }
 
 .modal-header {
@@ -65,4 +66,25 @@ tfoot {
 
 .modal-footer .button:hover {
     background-color: #C62E65;
+}
+
+.quantity {
+    color: #149dff;
+    border: #149dff solid 2px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.quantity:active {
+    color: #149dff
+}
+
+.quantity:hover {
+    color: #149dff
+}
+
+.alert {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
 }

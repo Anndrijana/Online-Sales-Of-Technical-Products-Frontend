@@ -1,15 +1,18 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartPlus, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import { faCartPlus, faShoppingCart, faTrashAlt, faCheckCircle, faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
-import { Modal, Nav, Button, Table } from "react-bootstrap";
+import { Modal, Nav, Button, Table, Form, Alert } from "react-bootstrap";
 import api, { ApiResponse } from "../../api/api";
 import ShoppingCartType from "../../types/ShoppingCartType";
 import './shoppingCart.css';
+import { Link } from 'react-router-dom';
 
 interface ShoppingCartState {
     productCount: number;
     shoppingCart?: ShoppingCartType;
     shoppingCartVisible: boolean;
+    message: string;
+    error: string;
 }
 
 export default class ShoppingCart extends React.Component {
@@ -21,6 +24,8 @@ export default class ShoppingCart extends React.Component {
         this.state = {
             productCount: 0,
             shoppingCartVisible: false,
+            message: '',
+            error: ''
         }
     }
 
@@ -32,6 +37,14 @@ export default class ShoppingCart extends React.Component {
 
     componentWillUnmount() {
         window.removeEventListener("shoppingCart.update", () => this.updateShoppingCart())
+    }
+
+    private setStateMessage(newMessage: string) {
+        this.setState(Object.assign(this.state, { message: newMessage }));
+    }
+
+    private setStateError(newError: string) {
+        this.setState(Object.assign(this.state, { error: newError }));
     }
 
     private setStateProductCount(newProductCount: number) {
@@ -59,6 +72,18 @@ export default class ShoppingCart extends React.Component {
     }
 
     private showShoppingCart() {
+        if(this.state.shoppingCart?.productShoppingCarts.length === 0) {
+            this.setStateShoppingCartVisible(true);
+            this.setStateMessage(( <p className="p">
+            Your shopping cart is empty! Continue your shopping...<br/>
+            <Link className="link" to='/categories'>HERE</Link>
+        </p>
+                ) as any);
+                return;
+            
+        }
+
+        this.setStateMessage('');
         this.setStateShoppingCartVisible(true);
     }
 
@@ -69,6 +94,12 @@ export default class ShoppingCart extends React.Component {
     private updateShoppingCart() {
         api('/api/shoppingCart/', 'get', {})
         .then((res: ApiResponse) => {
+
+            if (res.status === 'error') {
+                this.setStateProductCount(0);
+                this.setStateShoppingCart(undefined);
+                return;
+            }
             
             if (res.status === 'login') {
                 this.setStateProductCount(0);
@@ -76,8 +107,27 @@ export default class ShoppingCart extends React.Component {
                 return;
             }
 
+
             this.setStateShoppingCart(res.data);
             this.setStateProductCount(res.data.productShoppingCarts.length);
+
+            
+            /*if(res.data.productShoppingCarts.length === 0) {
+                this.setStateMessage(( <p className="p">
+                Your shopping cart is empty! Continue your shopping...<br/>
+                <Link className="link" to='/categories'>HERE</Link>
+            </p>
+                    ) as any);
+                    return;
+                
+            }
+
+            else {
+                this.setStateShoppingCart(res.data);
+                this.setStateProductCount(res.data.productShoppingCarts.length);
+                return;
+            }*/
+            
         })
     }
 
@@ -95,6 +145,98 @@ export default class ShoppingCart extends React.Component {
         return allTotal;
     }
 
+    private sendShoppingCartUpdate(data: any) {
+        api('/api/shoppingCart', 'patch', data)
+        .then((res: ApiResponse) => {
+
+            if (res.status === 'login') {
+                this.setStateProductCount(0);
+                this.setStateShoppingCart(undefined);
+                return;
+            }
+
+            this.setStateShoppingCart(res.data);
+            this.setStateProductCount(res.data.productShoppingCarts.length);
+        });
+    }
+
+    private changingQuantity(event: React.ChangeEvent<HTMLInputElement>) {
+        const productId = event.target.dataset.productId;
+        const newQuantity = event.target.value;
+
+        this.sendShoppingCartUpdate({
+            productId: productId,
+            quantity: newQuantity,
+        });
+    }
+
+    private removeFromShoppingCart(productId: number) {
+
+        this.sendShoppingCartUpdate({
+            productId: productId,
+            quantity: 0,
+        });
+       
+        this.setStateMessage('You have successfully deleted the product!')
+
+    }
+ 
+    private placeOrder() {
+        api('/api/shoppingCart/createOrder', 'post', {})
+        .then((res: ApiResponse) => {
+
+            if (res.status === 'error') {
+
+                this.setStateError(( <p className="p">
+                <FontAwesomeIcon icon={ faExclamationCircle } color="red" size="lg"></FontAwesomeIcon><br/>
+
+                SORRY...<br/>
+                Some of these products is currently out of stock.<br/>
+                Continue your shopping...<br/>
+                <Link className="link" to='/categories'>HERE</Link>
+                </p>
+                    ) as any)
+
+                this.setStateProductCount(0);
+                this.setStateShoppingCart(undefined);
+             
+                return;
+            }
+            
+
+            if (res.status === 'login') {
+                this.setStateProductCount(0);
+                this.setStateShoppingCart(undefined);
+                return;
+            }
+
+            this.setStateMessage(( <p className="p">
+            <FontAwesomeIcon icon={ faCheckCircle } color="green" size="lg"></FontAwesomeIcon><br/>
+
+            Your order has been successful made!<br/>
+            Continue your shopping...<br/>
+            <Link className="link" to='/categories'>HERE</Link>
+        </p>
+                ) as any);
+
+            this.setStateShoppingCart(undefined);
+            this.setStateProductCount(0);
+        });
+
+       if( this.state.productCount === 0) {
+
+            this.setStateError('The product has already been ordered!');
+
+        }
+       
+    }
+
+    private hide() {
+        this.setStateMessage('');
+        this.setStateError('');
+        this.setStateShoppingCartVisible(false);
+    }
+
     render() {
         return (
             <>
@@ -105,7 +247,7 @@ export default class ShoppingCart extends React.Component {
                 </Nav.Link>
             </Nav.Item>
             
-            <Modal size="xl" show= { this.state.shoppingCartVisible } onHide= { () => this.removeShoppingCart() }>
+            <Modal size="xl" show= { this.state.shoppingCartVisible } onHide= { () => this.hide() }>
                 <Modal.Header closeButton>
                    
                     <Modal.Title>
@@ -125,6 +267,7 @@ export default class ShoppingCart extends React.Component {
                                     <th className="th">Quantity</th>
                                     <th className="th">Price of one product</th>
                                     <th className="th">Total price</th>
+                                    <th className="th">Remove product</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -137,7 +280,13 @@ export default class ShoppingCart extends React.Component {
                                             
                                             <td>{ productShoppingCart.product.productName }</td>
                                             <td>{ productShoppingCart.product.category.categoryName }</td>
-                                            <td>{ productShoppingCart.quantity }</td>
+                                            <td>
+                                            <Form.Control className="quantity" type="number" step="1" min="1"
+                                                              value={ productShoppingCart.quantity }
+                                                              data-product-id = { productShoppingCart.product.productId }
+                                                              onChange={ (e) => this.changingQuantity(e as any) }
+                                            />
+                                            </td>
                                             <td>
                                                 {
                                                     Number(productShoppingCart.product.prices[productShoppingCart.product.prices.length-1].price)
@@ -148,12 +297,20 @@ export default class ShoppingCart extends React.Component {
                                                     Number(productShoppingCart.product.prices[productShoppingCart.product.prices.length-1].price * productShoppingCart.quantity)
                                                 } EUR
                                             </td>
+                                            <td>
+                                                <FontAwesomeIcon icon={faTrashAlt}
+                                                 
+                                                 onClick = {(e) => this.removeFromShoppingCart(productShoppingCart.product.productId)}
+                                                ></FontAwesomeIcon>
+                            
+                                            </td>
                                         </tr>
                                             )
                                 }, this) }
                             </tbody>
                             <tfoot>
                                 <tr>
+                                    <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
@@ -167,10 +324,19 @@ export default class ShoppingCart extends React.Component {
                                 </tr>
                             </tfoot>
                         </Table>
+
+                        <Alert variant="success" className={ this.state.message ? '' : 'd-none' }>
+                            { this.state.message }
+                        </Alert>
+
+                        <Alert variant="danger" className={ this.state.error ? '' : 'd-none' }>
+                            { this.state.error }
+                        </Alert>
                 </Modal.Body>
 
                 <Modal.Footer>
-                    <Button className="button">Place your order</Button>
+                    <Button className="button" onClick={ () => this.placeOrder() }
+                    disabled = { this.state.shoppingCart?.productShoppingCarts.length === 0 }>Place your order</Button>
                 </Modal.Footer>
             </Modal>
             </>

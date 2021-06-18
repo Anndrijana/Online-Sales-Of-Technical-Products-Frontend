@@ -99,7 +99,7 @@ class Categories extends React.Component {
                 <Card className="mb-3">
                 <Card.Img variant="top" src={ category.imagePath } width="300" height="170"/>
                     <Card.Body>
-                        <Card.Title as="p">
+                        <Card.Title as="p" className="cTitle">
                             { category.categoryName }
                         </Card.Title>
                         <Link to={ `/category/${ category.categoryId }` }

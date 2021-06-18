@@ -20,7 +20,7 @@ interface CategoryProp {
 }
 
 interface CategoryState {
-    isUserLoggedIn: boolean;
+    isCustomerLoggedIn: boolean;
     category?: CategoryType;
     subcategories?: CategoryType[];
     products?: ProductType[];
@@ -39,7 +39,7 @@ export default class SingleCategory extends React.Component<CategoryProp> {
         super(props);
         
         this.state = {
-            isUserLoggedIn: true,
+            isCustomerLoggedIn: true,
             filters: {
                 keywords: '',
                 priceMin: 0,
@@ -51,7 +51,7 @@ export default class SingleCategory extends React.Component<CategoryProp> {
 
     private setLogginState(isLoggedIn: boolean) {
         const newState = Object.assign(this.state, {
-            isUserLoggedIn: isLoggedIn,
+            isCustomerLoggedIn: isLoggedIn,
         });
 
         this.setState(newState);
@@ -82,7 +82,7 @@ export default class SingleCategory extends React.Component<CategoryProp> {
     }
 
     render() {
-        if (this.state.isUserLoggedIn === false) {
+        if (this.state.isCustomerLoggedIn === false) {
             return (
                 <Redirect to="/customer/login" />
             );

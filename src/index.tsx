@@ -14,6 +14,7 @@ import CustomerLogin from './components/Login/Login';
 import { CustomerRegistration } from './components/Registration/Registration';
 import Categories from './components/Categories/Categories';
 import SingleCategory from './components/SingleCategory/SingleCategory';
+import Orders from './components/Orders/Orders';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -25,6 +26,7 @@ ReactDOM.render(
         <Route exact path="/customer/register" component = { CustomerRegistration }></Route>
         <Route exact path="/categories" component = { Categories }></Route>
         <Route exact path="/category/:id" component = { SingleCategory }></Route>
+        <Route exact path="/customer/orders" component = { Orders }></Route>
       </Switch>
     </HashRouter>
   </React.StrictMode>,

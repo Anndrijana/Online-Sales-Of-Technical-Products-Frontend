@@ -1,0 +1,77 @@
+.modal-lg {
+    max-width: 1000px;
+}
+
+.table {
+    font-size: 18px;
+    text-align: center;
+}
+
+.card-title {
+    font-size: 25px;
+    text-align: center;
+}
+
+.tr {
+    background-color: #C62E65;
+    font-size: 22px;
+    color: white;
+}
+
+.infoButton {
+    border-radius: 50%;
+    box-shadow: none;
+    width: 10%;
+    display: inline-block;
+    align-items: center;
+    transform: translateY(35%);
+    margin-right: 20%;
+}
+
+.infoButton:hover {
+    background-color: #149dff;
+    border: solid 2px white
+}
+
+.modal-header {
+    border-bottom: white;
+    font-size: 30px;
+}
+
+.modal-header .close {
+    color: #C62E65;
+    border: transparent;
+    background-color: transparent;
+    font-size: 50px;
+}
+
+  .modal-title {
+      font-size: 30px;
+      margin-left: 35%;
+}
+
+.modal-footer {
+    border-top: white;
+}
+
+.modal-footer .button {
+    background-color: #149dff;
+    margin-left: 400px;
+    margin-right: 400px;
+    margin-top: 2px;
+}
+
+.modal-footer .button:hover {
+    background-color: #C62E65
+}
+
+.ct {
+    margin-left: 300px;
+}
+
+#card2 {
+    border: white;
+    background-image: linear-gradient(#FFF, #149dff, #FFF);
+    margin-top: 5%;
+    width: 100%;
+}

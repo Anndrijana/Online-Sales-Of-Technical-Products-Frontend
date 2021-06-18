@@ -187,3 +187,11 @@ margin-top: 5px;
     font-weight: bolder;
 }
 
+.cTitle {
+    background-color: #149dff;
+    font-weight: bolder;
+    margin-bottom: 12%;
+    color: black;
+    border-radius: 90%;
+}
+
