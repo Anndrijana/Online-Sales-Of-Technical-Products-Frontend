@@ -23,3 +23,13 @@
     text-indent: -9999px;
     filter: invert(95%) sepia(20%) saturate(3207%) hue-rotate(130deg) brightness(75%) contrast(100%);
 }
+
+.back-nav {
+    background-color: #333;
+}
+
+.mm {
+    color: white;
+    font-size: 25px;
+    font-weight: bolder;
+}

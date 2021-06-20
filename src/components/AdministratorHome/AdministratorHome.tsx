@@ -2,8 +2,9 @@ import React from 'react';
 import { Container, Card } from 'react-bootstrap';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import api, { ApiResponse } from '../../api/api';
+import RoledNavbar from '../RoledNavbar/RoledNavbar';
 
 interface AdministratorHomeState {
     isAdministratorLoggedIn: boolean;
@@ -53,15 +54,18 @@ class AdministratorHome extends React.Component {
 
         return (
             <Container>
-    
+                <RoledNavbar role="administrator"></RoledNavbar>
 
                 <Card>
                     <Card.Body>
                         <Card.Title>
                             <FontAwesomeIcon icon={ faHome } /> Administrator Home
                         </Card.Title>
-
-                        ...
+                        <ul>
+                            <li><Link to="/admin/home/category/">Categories</Link></li>
+                            <li><Link to="/admin/home/product/">Products</Link></li>
+                            <li><Link to="/admin/home/order/">Orders</Link></li>
+                        </ul>
                     </Card.Body>
                 </Card>
             </Container>

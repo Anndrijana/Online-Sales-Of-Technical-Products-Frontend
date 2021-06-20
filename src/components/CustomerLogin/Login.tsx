@@ -8,6 +8,7 @@ import { Button } from './styles';
 import Img from './login.jpg';
 import './styles.css';
 import { Link } from 'react-router-dom';
+import RoledNavbar from '../RoledNavbar/RoledNavbar';
 
 interface CustomerLoginState {
     email: string;
@@ -101,6 +102,7 @@ export default class CustomerLogin extends React.Component {
 
         return (
             <Container>
+                <RoledNavbar role="visitor"></RoledNavbar>
             
                 <Col md={ { span: 5, offset: 17 } }>
                     <Card className="form">

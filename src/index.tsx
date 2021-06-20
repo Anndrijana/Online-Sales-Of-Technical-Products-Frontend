@@ -17,6 +17,10 @@ import SingleCategory from './components/SingleCategory/SingleCategory';
 import Orders from './components/Orders/Orders';
 import AdministratorLogin from './components/AdministratorLogin/Login';
 import AdministratorHome from './components/AdministratorHome/AdministratorHome';
+import AdministratorCategories from './components/AdministratorCategories/AdministratorCategories';
+import AdministratorOrders from './components/AdministratorOrders/AdministratorOrders';
+import { AdministratorSignOut } from './components/AdministratorSignOut/AdministratorSignOut';
+import { CustomerSignOut } from './components/CustomerSignOut/CustomerSignOut';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -31,6 +35,10 @@ ReactDOM.render(
         <Route exact path="/customer/orders" component = { Orders }></Route>
         <Route exact path="/admin/login" component = { AdministratorLogin }></Route>
         <Route exact path="/admin/home" component = { AdministratorHome }></Route>
+        <Route exact path="/admin/home/category" component = { AdministratorCategories }></Route>
+        <Route exact path="/admin/home/order" component = { AdministratorOrders }></Route>
+        <Route exact path="/admin/logout" component = { AdministratorSignOut }></Route>
+        <Route exact path="/customer/logout" component = { CustomerSignOut }></Route>
       </Switch>
     </HashRouter>
   </React.StrictMode>,

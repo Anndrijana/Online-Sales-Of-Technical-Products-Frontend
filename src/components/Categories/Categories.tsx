@@ -6,6 +6,7 @@ import CategoryType from '../../types/CategoryType';
 import { Redirect, Link  } from 'react-router-dom';
 import api, { ApiResponse } from '../../api/api';
 import CategoryDto from '../../dtos/CategoryDto';
+import RoledNavbar from '../RoledNavbar/RoledNavbar';
 
 interface CategoriesState {
     isUserLoggedIn: boolean;
@@ -77,7 +78,8 @@ class Categories extends React.Component {
 
         return (
             <Container>
-
+                <RoledNavbar role="customer"></RoledNavbar>
+                
                 <Card className="p">
                     <Card.Body>
                         <Card.Title className="p">

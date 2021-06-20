@@ -7,6 +7,7 @@ import api, { ApiResponse } from '../../api/api';
 import Img from './register.jpg';
 import { Button } from './styles';
 import "./styles.css";
+import RoledNavbar from '../RoledNavbar/RoledNavbar';
 
 interface CustomerSignUpState {
     formData: {
@@ -61,7 +62,8 @@ export class CustomerRegistration extends React.Component {
     render() {
         return (
             <Container>
-
+                <RoledNavbar role="visitor"></RoledNavbar>
+                
                 <Col md={ { span: 7, offset: 2 } }>
                     <Card id="card">
                         

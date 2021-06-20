@@ -4,7 +4,7 @@ import GlobalStyle from './styles/global';
 import { ThemeProvider, DefaultTheme } from 'styled-components';
 import usePeristedState from './utils/usePersistedState';
 import light from './styles/themes/light';
-import dark from './styles/themes/dark';   
+import dark from './styles/themes/dark';
 
 function LightDarkMode() {
   const [theme, setTheme] = usePeristedState<DefaultTheme>('theme', light);

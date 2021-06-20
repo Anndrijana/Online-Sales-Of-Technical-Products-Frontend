@@ -6,6 +6,7 @@ import { Redirect } from 'react-router-dom';
 import api, { ApiResponse } from '../../api/api';
 import OrderType from '../../types/OrderType';
 import ShoppingCartType from '../../types/ShoppingCartType';
+import RoledNavbar from '../RoledNavbar/RoledNavbar';
 import './orders.css';
 
 const monthNames = ["January", "February", "March", "April", "May", "June",
@@ -233,6 +234,8 @@ export default class Order extends React.Component {
 
         return (
             <Container>
+                <RoledNavbar role="customer"></RoledNavbar>
+            
             <Card id="card2">
                     <Card.Body>
                         <Card.Title>

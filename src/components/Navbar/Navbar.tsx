@@ -1,9 +1,9 @@
 import React from "react";
-import { Nav, Image } from "react-bootstrap";
 import { HashRouter, Link } from "react-router-dom";
 import './styles.css';
-import Img from './buy.png';
 import ShoppingCart from "../ShoppingCart/ShoppingCart";
+import { Nav } from "react-bootstrap";
+
 
 export class NavbarItem {
     text: string = '';
@@ -17,7 +17,7 @@ export class NavbarItem {
 
 interface NavbarProp {
     items: NavbarItem[];
-    showCart?: boolean;
+    showShoppingCart?: boolean;
 }
 
 interface NavbarState {
@@ -42,21 +42,24 @@ export class Navbar extends React.Component<NavbarProp> {
     }
 
     render() {
+
         return (
-        <Nav variant="pills">
-            <Image className="img" src={ Img } />
-            <HashRouter>
-            { this.state.items.map(item => {
-                return (
-                    <Link to={ item.link } className="nav-link">
-                        { item.text }
-                    </Link>
-                );
-            })
-            }
-            <ShoppingCart></ShoppingCart>
-            </HashRouter>
-        </Nav>
-        );
+            
+            <Nav className="back-nav" variant="pills">
+                
+                <HashRouter>
+                { this.state.items.map(item => {
+                    return (
+                        <Link to={ item.link } className="nav-link">
+                            { item.text }
+                        </Link>
+                    );
+                })
+                }
+                { this.props.showShoppingCart ? <ShoppingCart></ShoppingCart> : '' }
+                </HashRouter>
+            </Nav>
+           
+            );
     }
 }
