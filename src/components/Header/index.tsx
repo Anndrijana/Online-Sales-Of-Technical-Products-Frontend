@@ -5,18 +5,26 @@ import { shade } from 'polished';
 import { Container } from './styles';
 import { Navbar, NavbarItem } from '../Navbar/Navbar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faSignInAlt, faUserPlus, faListOl, faShoppingBasket } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faSignInAlt, faUserPlus, faListOl, faShoppingBasket, faBan } from '@fortawesome/free-solid-svg-icons';
 
 const signIn =  (<FontAwesomeIcon icon={ faSignInAlt } size="lg" color="#FFF"/>) as any;
 const signUp =  (<FontAwesomeIcon icon={ faUserPlus } size="lg" color="#FFF"/>) as any;
 const home =  (<FontAwesomeIcon icon={ faHome } size="lg" color="#FFF"/>) as any;
 const cat =  (<FontAwesomeIcon icon={ faListOl } size="lg" color="#FFF"/>) as any;
 const orders =  (<FontAwesomeIcon icon={ faShoppingBasket } size="lg" color="#FFF"/>) as any;
+const signInAdmin =  (<div>
+  <FontAwesomeIcon icon={ faBan } size="lg" color="#FFF"/> Administrator
+</div>) as any;
 
 const navbarItems = [
-  new NavbarItem(home, "/"),
+  new NavbarItem(signInAdmin, "/admin/login/"),
   new NavbarItem(signIn, "/customer/login/"),
   new NavbarItem(signUp, "/customer/register/"),
+  new NavbarItem("", ""),
+  new NavbarItem("", ""),
+  new NavbarItem("", ""),
+  new NavbarItem("", ""),
+  new NavbarItem(home, "/"),
   new NavbarItem(cat, "/categories"),
   new NavbarItem(orders, "/customer/orders"),
 ]

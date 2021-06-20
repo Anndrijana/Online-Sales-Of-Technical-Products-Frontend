@@ -2,28 +2,27 @@ import React from 'react';
 import { Container, Form, Card, Col, Alert, Image  } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
-import api, { ApiResponse, saveToken, saveRefreshToken } from '../../api/api';
+import api, { ApiResponse, saveToken, saveRefreshToken, saveIdentity } from '../../api/api';
 import { Redirect } from 'react-router-dom';
 import { Button } from './styles';
-import Img from './login.jpg';
+import Img from './login.png';
 import './styles.css';
-import { Link } from 'react-router-dom';
 
-interface CustomerLoginState {
-    email: string;
+interface AdministratorLoginState {
+    username: string;
     password: string;
     errorMessage: string;
     isLoggedIn: boolean;
 }
 
-export default class CustomerLogin extends React.Component {
-    state: CustomerLoginState;
+export default class AdministratorLogin extends React.Component {
+    state: AdministratorLoginState;
 
     constructor(props: Readonly<{}>) {
         super(props);
 
         this.state = {
-            email: '',
+            username: '',
             password: '',
             errorMessage: '',
             isLoggedIn: false,
@@ -56,10 +55,10 @@ export default class CustomerLogin extends React.Component {
 
     private doLogin() {
         api(
-            'auth/customer/login',
+            'auth/admin/login',
             'post',
             {
-                email: this.state.email,
+                username: this.state.username,
                 password: this.state.password,
             }
         )
@@ -75,7 +74,7 @@ export default class CustomerLogin extends React.Component {
                     let message = '';
 
                     switch (res.data.statusCode) {
-                        case -3003: message = 'You entered an unknown email!'; break;
+                        case -3003: message = 'You entered an unknown username!'; break;
                         case -3004: message = 'You entered the wrong password!'; break;
                     }
 
@@ -84,8 +83,9 @@ export default class CustomerLogin extends React.Component {
                     return;
                 }
 
-                saveToken('customer', res.data.token);
-                saveRefreshToken('customer', res.data.refreshToken);
+                saveToken('administrator', res.data.token);
+                saveRefreshToken('administrator', res.data.refreshToken);
+                saveIdentity('administrator', res.data.identity);
 
                 this.setLogginState(true);
             }
@@ -95,7 +95,7 @@ export default class CustomerLogin extends React.Component {
     render() {
         if (this.state.isLoggedIn === true) {
             return (
-                <Redirect to="/" />
+                <Redirect to="/admin/home" />
             );
         }
 
@@ -103,13 +103,14 @@ export default class CustomerLogin extends React.Component {
             <Container>
             
                 <Col md={ { span: 5, offset: 17 } }>
-                    <Card className="form">
+                    <Card className="form2">
 
                         <Card.Title className="title">
                                 <FontAwesomeIcon icon={ faSignInAlt } color="#c62f66"/> Sign In
                         </Card.Title>
+                        <div className="titleAC">For administrators only</div>
                     
-                        <Image src= {Img} roundedCircle />
+                        <Image src= {Img} roundedCircle width="250px" style= {{"marginLeft": "180px"}}/>
             
                         <Card.Body>        
 
@@ -117,14 +118,10 @@ export default class CustomerLogin extends React.Component {
                             
                                 <Form.Group>
         
-                                    <Form.Label className="label" htmlFor="email">E-mail address:</Form.Label>
-                                    <Form.Control type="email" id="email" placeholder= "📧 Type your e-mail address" 
-                                                    value={ this.state.email }
+                                    <Form.Label className="label" htmlFor="username">Username:</Form.Label>
+                                    <Form.Control type="username" id="username" placeholder= "📧 Type your username:" 
+                                                    value={ this.state.username }
                                                     onChange={ event => this.formInputChanged(event as any) } />
-                                    <Form.Text className="text-muted">
-                                        We'll never share your e-mail with anyone else.
-                                    </Form.Text>
-                               
                                 </Form.Group>
                                 
                                 <Form.Group>
@@ -134,12 +131,7 @@ export default class CustomerLogin extends React.Component {
                                                     onChange={ event => this.formInputChanged(event as any) }/>
                                 </Form.Group>
 
-                                <p className="p">
-                                    Not a member?<br/>
-                                    <Link className="link" to='/customer/register'>Sign Up now</Link>
-                                </p>
-
-                                <Button
+                                <Button style= {{"marginTop": "20px"}}
                                     onClick={ () => this.doLogin() }>
                                     Sign In
                                 </Button>

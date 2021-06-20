@@ -343,7 +343,7 @@ export default class Order extends React.Component {
                 <td> { new Date(order.createdAt).getDate() } { monthNames[new Date(order.createdAt).getMonth()] } { new Date(order.createdAt).getFullYear() } { (new Date(order.createdAt).getHours()<10?'0':'') +  new Date(order.createdAt).getHours()}:{ (new Date(order.createdAt).getMinutes()<10?'0':'') + new Date(order.createdAt).getMinutes() }:{ (new Date(order.createdAt).getSeconds()<10?'0':'') + new Date(order.createdAt).getSeconds()} </td>
                 <td>{ order.orderStatus }</td>
                 <td>
-                <Button size="sm" className = "infoButton"
+                <Button size="sm" id = "information"
                             onClick={ () => this.showTheRequestedCart(order.cart) }>
                         <FontAwesomeIcon size="lg" icon={ faInfo }/>
                 </Button>
