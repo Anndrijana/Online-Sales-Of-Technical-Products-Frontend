@@ -22,14 +22,17 @@ import AdministratorOrders from './components/AdministratorOrders/AdministratorO
 import { AdministratorSignOut } from './components/AdministratorSignOut/AdministratorSignOut';
 import { CustomerSignOut } from './components/CustomerSignOut/CustomerSignOut';
 import ProductInformation from './components/ProductInformation/ProductInformation';
+import AdministratorProducts from './components/AdministratorProducts/AdministratorProducts';
+import CategoriesForVisitors from './components/CategoriesForVisitors/CategoriesForVisitors';
+import SingleCategoryForVisitors from './components/SingleCategoryForVisitors/SingleCategoryForVisitors';
 
 ReactDOM.render(
   <React.StrictMode>
     <LightDarkMode></LightDarkMode>
     <HashRouter>
       <Switch>
-        <Route exact path="/" component = { Home }></Route>
-        <Route exact path="/customer/login" component = { CustomerLogin }></Route>
+        <Route exact path="/home" component = { Home }></Route>
+        <Route exact path="/" component = { CustomerLogin }></Route>
         <Route exact path="/customer/register" component = { CustomerRegistration }></Route>
         <Route exact path="/categories" component = { Categories }></Route>
         <Route exact path="/category/:id" component = { SingleCategory }></Route>
@@ -39,8 +42,11 @@ ReactDOM.render(
         <Route exact path="/admin/home" component = { AdministratorHome }></Route>
         <Route exact path="/admin/home/category" component = { AdministratorCategories }></Route>
         <Route exact path="/admin/home/order" component = { AdministratorOrders }></Route>
+        <Route exact path="/admin/home/product" component = { AdministratorProducts }></Route>
         <Route exact path="/admin/logout" component = { AdministratorSignOut }></Route>
         <Route exact path="/customer/logout" component = { CustomerSignOut }></Route>
+        <Route exact path="/visitor/categories" component = { CategoriesForVisitors }></Route>
+        <Route exact path="/visitor/category/:id" component = { SingleCategoryForVisitors }></Route>
       </Switch>
     </HashRouter>
   </React.StrictMode>,

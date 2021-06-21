@@ -25,7 +25,7 @@ export class CustomerSignOut extends React.Component {
 
     render() {
         if (this.state.done) {
-            return <Redirect to="/customer/login/" />
+            return <Redirect to="/" />
         }
 
         return (

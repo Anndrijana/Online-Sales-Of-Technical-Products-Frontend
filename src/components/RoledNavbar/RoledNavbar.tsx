@@ -17,6 +17,8 @@ const cat =  (<h6 className="faListOl"><FontAwesomeIcon icon={ faListOl } size="
 const orders =  (<h6 className="faShoppingBasket"><FontAwesomeIcon icon={ faShoppingBasket } size="lg" color="#FFF"/></h6>) as any;
 const signOut =  (<h6 className="faSignOutAlt"><FontAwesomeIcon icon={ faSignOutAlt } size="lg" color="#FFF"/></h6>) as any;
 
+const catForVisitors =  (<h6 className="faListOl"><FontAwesomeIcon icon={ faListOl } size="lg" color="#FFF"/></h6>) as any;
+
 export default class RoledNavbar extends React.Component<RoledNavbarProperties> {
 
     render() {
@@ -49,14 +51,15 @@ export default class RoledNavbar extends React.Component<RoledNavbarProperties> 
     getVisitorNavbarItems(): NavbarItem[] {
         return [
             new NavbarItem(signInAdmin, "/admin/login/"),
-            new NavbarItem(signIn, "/customer/login/"),
+            new NavbarItem(signIn, "/"),
             new NavbarItem(signUp, "/customer/register/"),
+            new NavbarItem(catForVisitors, "/visitor/categories/"),
         ];
     }
 
     getCustomerNavbarItems(): NavbarItem[] {
         return [
-            new NavbarItem(home, "/"),
+            new NavbarItem(home, "/home"),
             new NavbarItem(cat, "/categories/"),
             new NavbarItem(orders, "/customer/orders/"),
             new NavbarItem(signOutCustomer, "/customer/logout/"),

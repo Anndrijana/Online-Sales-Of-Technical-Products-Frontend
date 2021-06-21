@@ -96,7 +96,7 @@ export default class CustomerLogin extends React.Component {
     render() {
         if (this.state.isLoggedIn === true) {
             return (
-                <Redirect to="/" />
+                <Redirect to="/home" />
             );
         }
 

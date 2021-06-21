@@ -177,7 +177,7 @@ export class CustomerRegistration extends React.Component {
 
                     <p className="p">
                         Already have an account?<br/>
-                        <Link className="link" to='/customer/login'>Sign In</Link>
+                        <Link className="link" to='/'>Sign In</Link>
                     </p>
 
                     <Form.Group>
@@ -202,7 +202,7 @@ export class CustomerRegistration extends React.Component {
             
                 Welcome!<br />
                 You have become a registered user.<br />
-                <Link className="link" to='/customer/login'>Click here</Link> to go to the login page.
+                <Link className="link" to='/'>Click here</Link> to go to the login page.
            
             </p>
         );

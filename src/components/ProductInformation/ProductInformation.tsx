@@ -168,7 +168,7 @@ export default class ProductInformation extends React.Component<ProductProp> {
     render() {
         if (this.state.isUserLoggedIn === false) {
             return (
-                <Redirect to="/customer/login" />
+                <Redirect to="/" />
             );
         }
 

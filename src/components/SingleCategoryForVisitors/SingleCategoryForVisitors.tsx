@@ -1,15 +1,16 @@
 import React from "react";
-import { Card, Col, Container, Form, Row, Button } from "react-bootstrap";
+import { Card, Col, Form, Row, Button, Alert, Container } from "react-bootstrap";
 import api, { ApiResponse } from '../../api/api';
 import CategoryType from "../../types/CategoryType";
 import ProductType from "../../types/ProductType";
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import CategoryDto from '../../dtos/CategoryDto';
 import ProductDto from "../../dtos/ProductDto";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearchMinus } from "@fortawesome/free-solid-svg-icons";
-import SingleProduct from "../SingleProduct/SingleProduct";
-import RoledNavbar from '../RoledNavbar/RoledNavbar';
+import { faInfo, faSearchMinus } from "@fortawesome/free-solid-svg-icons";
+import SingleProductForVisitors from "../SingleProductForVisitors/SIngleProductForVisitors";
+import RoledNavbar from "../RoledNavbar/RoledNavbar";
+import './info.css';
 
 interface CategoryProp {
     match: {
@@ -17,11 +18,9 @@ interface CategoryProp {
             id: number;
         }
     }
-
 }
 
 interface CategoryState {
-    isCustomerLoggedIn: boolean;
     category?: CategoryType;
     subcategories?: CategoryType[];
     products?: ProductType[];
@@ -33,14 +32,13 @@ interface CategoryState {
     };
 }
 
-export default class SingleCategory extends React.Component<CategoryProp> {
+export default class SingleCategoryForVisitors extends React.Component<CategoryProp> {
     state: CategoryState;
 
     constructor(props: Readonly<CategoryProp>) {
         super(props);
         
         this.state = {
-            isCustomerLoggedIn: true,
             filters: {
                 keywords: '',
                 priceMin: 0,
@@ -48,14 +46,6 @@ export default class SingleCategory extends React.Component<CategoryProp> {
                 order: "price asc",
             }
         }
-    }
-
-    private setLogginState(isLoggedIn: boolean) {
-        const newState = Object.assign(this.state, {
-            isCustomerLoggedIn: isLoggedIn,
-        });
-
-        this.setState(newState);
     }
 
     private setSingleCategory(category: CategoryType) {
@@ -83,15 +73,10 @@ export default class SingleCategory extends React.Component<CategoryProp> {
     }
 
     render() {
-        if (this.state.isCustomerLoggedIn === false) {
-            return (
-                <Redirect to="/" />
-            );
-        }
 
         return (
             <Container>
-                <RoledNavbar role="customer"></RoledNavbar>
+                <RoledNavbar role="visitor"></RoledNavbar>
                 <Card className="p">
                     <Card.Body>
                         <Card.Title className="p">
@@ -223,7 +208,7 @@ export default class SingleCategory extends React.Component<CategoryProp> {
                         <Card.Title as="p">
                             { category.categoryName }
                         </Card.Title>
-                        <Link to={ `/category/${ category.categoryId }` }
+                        <Link to={ `/visitor/category/${ category.categoryId }` }
                               className="btn">
                             Open
                         </Link>
@@ -238,6 +223,12 @@ export default class SingleCategory extends React.Component<CategoryProp> {
     if (this.state.products?.length !== 0) {
         return (
             <Container>
+            
+            <Alert className="info" variant="info">
+                <FontAwesomeIcon icon={faInfo} size='lg'></FontAwesomeIcon>&nbsp;
+                You must be a logged in customer to be able to order products!<br/>
+                <Link className="link" to='/'>Sign In now</Link>
+            </Alert>
             
             <Card className="width">
             <Row>
@@ -263,7 +254,7 @@ export default class SingleCategory extends React.Component<CategoryProp> {
 
    private singleProduct(product: ProductType) {
        return (
-           <SingleProduct product={product}></SingleProduct>
+           <SingleProductForVisitors product={product}></SingleProductForVisitors>
        );
     }
 
@@ -280,11 +271,8 @@ export default class SingleCategory extends React.Component<CategoryProp> {
     }
 
     private getCategoryData() {
-        api('api/category/' + this.props.match.params.id, 'get', {})
+        api('visitor/category/' + this.props.match.params.id, 'get', {})
         .then((res:ApiResponse) => {
-           if(res.status === 'login') {
-               return this.setLogginState(false);
-           }
 
            const singleCategory: CategoryType = {
                categoryId: res.data.categoryId,
@@ -306,7 +294,7 @@ export default class SingleCategory extends React.Component<CategoryProp> {
 
         const orderParts = this.state.filters.order.split(' ');
 
-        api('api/product/search/', 'post', {
+        api('visitor/product/search', 'post', {
             categoryId: Number(this.props.match.params.id),
             keywords: this.state.filters.keywords,
             priceMin: this.state.filters.priceMin,
@@ -317,9 +305,6 @@ export default class SingleCategory extends React.Component<CategoryProp> {
         })
 
         .then((res: ApiResponse) => {
-            if (res.status === 'login') {
-                return this.setLogginState(false);
-            }
 
             if (res.data.statusCode === 0) {
                 this.setProducts([]);

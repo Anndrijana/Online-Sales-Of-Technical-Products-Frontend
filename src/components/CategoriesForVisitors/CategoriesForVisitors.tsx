@@ -3,24 +3,22 @@ import { Container, Card, Row, Col } from 'react-bootstrap';
 import { faListAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import CategoryType from '../../types/CategoryType';
-import { Link, Redirect  } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import api, { ApiResponse } from '../../api/api';
 import CategoryDto from '../../dtos/CategoryDto';
 import RoledNavbar from '../RoledNavbar/RoledNavbar';
 
 interface CategoriesState {
-    isUserLoggedIn: boolean;
     categories?: CategoryType[];
 }
 
-class Categories extends React.Component {
+class CategoriesForVisitors extends React.Component {
     state: CategoriesState;
 
     constructor(props: Readonly<{}>) {
         super(props);
 
         this.state = {
-            isUserLoggedIn: true,
             categories: [],
         };
     }
@@ -34,12 +32,8 @@ class Categories extends React.Component {
     }
 
     private getCategories() {
-        api('api/category/?filter=parentCategoryId||$isnull', 'get', {})
+        api('visitor/category/?filter=parentCategoryId||$isnull', 'get', {})
         .then((res: ApiResponse) => {
-            if (res.status === "error" || res.status === "login") {
-                this.setLogginState(false);
-                return;
-            }
 
             this.putCategoriesInState(res.data);
         });
@@ -61,24 +55,24 @@ class Categories extends React.Component {
         this.setState(newState);
     }
 
-    private setLogginState(isLoggedIn: boolean) {
+    /*private setLogginState(isLoggedIn: boolean) {
         const newState = Object.assign(this.state, {
             isUserLoggedIn: isLoggedIn,
         });
 
         this.setState(newState);
-    }
+    }*/
 
     render() {
-        if (this.state.isUserLoggedIn === false) {
+        /*if (this.state.isUserLoggedIn === false) {
             return (
-                <Redirect to="/" />
+                <Redirect to="/customer/login" />
             );
-        }
+        }*/
 
         return (
             <Container>
-                <RoledNavbar role="customer"></RoledNavbar>
+                <RoledNavbar role="visitor"></RoledNavbar>
                 
                 <Card className="p">
                     <Card.Body>
@@ -104,7 +98,7 @@ class Categories extends React.Component {
                         <Card.Title as="p" className="cTitle">
                             { category.categoryName }
                         </Card.Title>
-                        <Link to={ `/category/${ category.categoryId }` }
+                        <Link to={ `/visitor/category/${ category.categoryId }` }
                               className="btn">
                             Open
                         </Link>
@@ -115,4 +109,4 @@ class Categories extends React.Component {
     }
 }
 
-export default Categories;
+export default CategoriesForVisitors;
