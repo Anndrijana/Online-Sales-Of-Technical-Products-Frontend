@@ -14,10 +14,11 @@ export default class ProductType {
     }[];
     images?: {
         imageId: number;
+        captionImage: string;
         imagePath: string;
     }[];
-    categoryId?: number;
     category?: {
+        categoryId?: number;
         categoryName: string;
     };
 }

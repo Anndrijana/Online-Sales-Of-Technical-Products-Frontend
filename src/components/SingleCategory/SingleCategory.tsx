@@ -9,6 +9,7 @@ import ProductDto from "../../dtos/ProductDto";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearchMinus } from "@fortawesome/free-solid-svg-icons";
 import SingleProduct from "../SingleProduct/SingleProduct";
+import RoledNavbar from '../RoledNavbar/RoledNavbar';
 
 interface CategoryProp {
     match: {
@@ -90,6 +91,7 @@ export default class SingleCategory extends React.Component<CategoryProp> {
 
         return (
             <Container>
+                <RoledNavbar role="customer"></RoledNavbar>
                 <Card className="p">
                     <Card.Body>
                         <Card.Title className="p">
@@ -148,6 +150,7 @@ export default class SingleCategory extends React.Component<CategoryProp> {
 
     private filters() {
         return (
+            
             <>
             <Card className="filters">
             
@@ -195,6 +198,7 @@ export default class SingleCategory extends React.Component<CategoryProp> {
             </Card>
                 
             </>
+
         );
     }
 

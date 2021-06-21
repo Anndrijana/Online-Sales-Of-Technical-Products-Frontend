@@ -1,17 +1,148 @@
-.nav-link {
-    color: rgb(255, 255, 255);
-    border: none;
+.faBan {
+    position: relative;
+    left: 1050px;
+    color: white
 }
 
-.nav-link:hover {
+.faBan:hover {
     color: rgb(255, 255, 255);
     border-radius: 50%;
     background-color: #8C70A8;
 }
 
-.nav-link:active, .nav-link:focus {
+.faBan:active, .faBan:focus {
     text-decoration: none !important;
+    color: none;
+    border-radius: 50%;
+    background-color: #8C70A8;
+}
+
+.faSignInAlt {
+    position: relative;
+    right: 180px;
+    color: white
+}
+
+.faSignInAlt:hover {
+    color: rgb(255, 255, 255);
+    border-radius: 50%;
+    background-color: #8C70A8;
+}
+
+.faSignInAlt:active, .faSignAlt:focus {
+    text-decoration: none !important;
+    color: none;
+    border-radius: 50%;
+    background-color: #8C70A8;
+}
+
+.faUserPlus {
+    position: relative;
+    right: 160px;
     color: white;
+}
+
+.faUserPlus:hover {
+    color: rgb(255, 255, 255);
+    border-radius: 50%;
+    background-color: #8C70A8;
+}
+
+.faUserPlus:active , .faUserPlus:focus  {
+    text-decoration: none !important;
+    color: none;
+    border-radius: 50%;
+    background-color: #8C70A8;
+}
+
+.faHome {
+    color: white;
+}
+
+.faHome:hover {
+    color: rgb(255, 255, 255);
+    border-radius: 50%;
+    background-color: #8C70A8;
+}
+
+.faHome:active , .faHome:focus  {
+    text-decoration: none !important;
+    color: none;
+    border-radius: 50%;
+    background-color: #8C70A8;
+}
+
+.faSignOutAlt {
+    position: relative;
+    left: 1150px;
+    color: white;
+}
+
+.faSignOutAlt:hover {
+    color: rgb(255, 255, 255);
+    border-radius: 50%;
+    background-color: #8C70A8;
+}
+
+.faSignOutAlt:active , .faSignOutAlt:focus  {
+    text-decoration: none !important;
+    color: none;
+    border-radius: 50%;
+    background-color: #8C70A8;
+}
+
+.faSignOutAltCustomer {
+    position: relative;
+    left: 1015px }
+
+.faSignOutAltCustomer:hover {
+    color: rgb(255, 255, 255);
+    border-radius: 50%;
+    background-color: #8C70A8;
+}
+
+.faSignOutAltCustomer:active , .faSignOutAltCustomer:focus  {
+    text-decoration: none !important;
+    color: none;
+    border-radius: 50%;
+    background-color: #8C70A8;
+}
+
+.cart {
+    position: relative;
+    left: 300px  
+}
+
+.faListOl {
+    position: relative;
+    left: 450px }
+
+.faListOl:hover {
+    color: rgb(255, 255, 255);
+    border-radius: 50%;
+    background-color: #8C70A8;
+}
+
+.faListOl:active , .faListOl:focus  {
+    text-decoration: none !important;
+    color: none;
+    border-radius: 50%;
+    background-color: #8C70A8;
+}
+
+.faShoppingBasket {
+    position: relative;
+    left: 500px }
+
+.faShoppingBasket:hover {
+    color: rgb(255, 255, 255);
+    border-radius: 50%;
+    background-color: #8C70A8;
+}
+
+.faShoppingBasket:active , .faShoppingBasket:focus  {
+    text-decoration: none !important;
+    color: none;
     border-radius: 50%;
     background-color: #8C70A8;
 }
@@ -25,7 +156,13 @@
 }
 
 .back-nav {
-    background-color: #333;
+    background-color: transparent;
+    position: absolute;
+    top: 0;
+    z-index: 1030;
+    height: 60px;
+    align-items: center;
+    width: 85%;
 }
 
 .mm {

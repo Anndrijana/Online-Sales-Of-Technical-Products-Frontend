@@ -241,7 +241,7 @@ export default class ShoppingCart extends React.Component {
         return (
             <>
             <Nav.Item>
-                <Nav.Link onClick ={ () => this.showShoppingCart() }>
+                <Nav.Link className="cart" onClick ={ () => this.showShoppingCart() }>
                     <FontAwesomeIcon icon={ faCartPlus } size="lg" color="#FFF"/>
                     <div className="count">{this.state.productCount}</div>
                 </Nav.Link>

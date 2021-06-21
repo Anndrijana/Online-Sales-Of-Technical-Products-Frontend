@@ -5,17 +5,20 @@ import SlideTwo from '../carouselSlides/SlideTwo';
 import SlideThree from '../carouselSlides/SlideThree';
 import './styles.css';
 import RoledNavbar from '../RoledNavbar/RoledNavbar';
+import { Container } from 'react-bootstrap';
 
 const Home: React.FC = () => {
   return (
+    <Container>
+    <RoledNavbar role="customer"></RoledNavbar>
     <div className="carousel">
-      <RoledNavbar role="customer"></RoledNavbar>
       <Carousel>
         <SlideOne/>
         <SlideTwo/>
         <SlideThree/>
       </Carousel>
     </div>
+    </Container>
   );
 }
 

@@ -12,10 +12,12 @@ export default interface ApiProductDto {
         price: number;
     }[],
     images: {
+        imageId: number;
         captionImage: string;
         imagePath: string;
     }[],
     category?: {
+        categoryId: number;
         categoryName: string;
     };
 }

@@ -8,15 +8,14 @@ interface RoledNavbarProperties {
     role: 'administrator' | 'visitor' | 'customer' ;
 }
 
-const signInAdmin =  (<div>
-    <FontAwesomeIcon icon={ faBan } size="lg" color="#FFF"/> Administrator
-  </div>) as any;
-const signIn =  (<FontAwesomeIcon icon={ faSignInAlt } size="lg" color="#FFF"/>) as any;
-const signOut =  (<FontAwesomeIcon icon={ faSignOutAlt } size="lg" color="#FFF"/>) as any;
-const signUp =  (<FontAwesomeIcon icon={ faUserPlus } size="lg" color="#FFF"/>) as any;
-const home =  (<FontAwesomeIcon icon={ faHome } size="lg" color="#FFF"/>) as any;
-const cat =  (<FontAwesomeIcon icon={ faListOl } size="lg" color="#FFF"/>) as any;
-const orders =  (<FontAwesomeIcon icon={ faShoppingBasket } size="lg" color="#FFF"/>) as any;
+const signInAdmin =  (<h6 className="faBan"> <FontAwesomeIcon icon={ faBan } size="lg" color="#FFF"/> &emsp;Administrator </h6>) as any;
+const signIn =  (<h6 className="faSignInAlt"><FontAwesomeIcon icon={ faSignInAlt } size="lg" color="#FFF"/></h6>) as any;
+const signOutCustomer =  (<h6 className="faSignOutAltCustomer"><FontAwesomeIcon icon={ faSignOutAlt } size="lg" color="#FFF"/></h6>) as any;
+const signUp =  (<h6 className="faUserPlus"><FontAwesomeIcon icon={ faUserPlus } size="lg" color="#FFF"/></h6>) as any;
+const home =  (<h6 className="faHome"><FontAwesomeIcon icon={ faHome } size="lg" color="#FFF"/></h6>) as any;
+const cat =  (<h6 className="faListOl"><FontAwesomeIcon icon={ faListOl } size="lg" color="#FFF"/></h6>) as any;
+const orders =  (<h6 className="faShoppingBasket"><FontAwesomeIcon icon={ faShoppingBasket } size="lg" color="#FFF"/></h6>) as any;
+const signOut =  (<h6 className="faSignOutAlt"><FontAwesomeIcon icon={ faSignOutAlt } size="lg" color="#FFF"/></h6>) as any;
 
 export default class RoledNavbar extends React.Component<RoledNavbarProperties> {
 
@@ -27,7 +26,7 @@ export default class RoledNavbar extends React.Component<RoledNavbarProperties> 
         switch (this.props.role) {
             case 'administrator' : navbarItems = this.getAdministratorNavbarItems(); break;
             case 'visitor'       : navbarItems = this.getVisitorNavbarItems(); break;
-            case 'customer'      : navbarItems = this.getUserNavbarItems(); break;
+            case 'customer'      : navbarItems = this.getCustomerNavbarItems(); break;
         }
 
         let showShoppingCart = false;
@@ -49,18 +48,18 @@ export default class RoledNavbar extends React.Component<RoledNavbarProperties> 
 
     getVisitorNavbarItems(): NavbarItem[] {
         return [
-            new NavbarItem(signUp, "/customer/register/"),
-            new NavbarItem(signIn, "/customer/login/"),
             new NavbarItem(signInAdmin, "/admin/login/"),
+            new NavbarItem(signIn, "/customer/login/"),
+            new NavbarItem(signUp, "/customer/register/"),
         ];
     }
 
-    getUserNavbarItems(): NavbarItem[] {
+    getCustomerNavbarItems(): NavbarItem[] {
         return [
             new NavbarItem(home, "/"),
             new NavbarItem(cat, "/categories/"),
             new NavbarItem(orders, "/customer/orders/"),
-            new NavbarItem(signOut, "/customer/logout/"),
+            new NavbarItem(signOutCustomer, "/customer/logout/"),
         ];
     }
 }

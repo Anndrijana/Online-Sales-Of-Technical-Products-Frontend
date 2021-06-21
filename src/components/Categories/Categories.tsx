@@ -3,7 +3,7 @@ import { Container, Card, Row, Col } from 'react-bootstrap';
 import { faListAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import CategoryType from '../../types/CategoryType';
-import { Redirect, Link  } from 'react-router-dom';
+import { Link, Redirect  } from 'react-router-dom';
 import api, { ApiResponse } from '../../api/api';
 import CategoryDto from '../../dtos/CategoryDto';
 import RoledNavbar from '../RoledNavbar/RoledNavbar';

@@ -21,6 +21,7 @@ import AdministratorCategories from './components/AdministratorCategories/Admini
 import AdministratorOrders from './components/AdministratorOrders/AdministratorOrders';
 import { AdministratorSignOut } from './components/AdministratorSignOut/AdministratorSignOut';
 import { CustomerSignOut } from './components/CustomerSignOut/CustomerSignOut';
+import ProductInformation from './components/ProductInformation/ProductInformation';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -32,6 +33,7 @@ ReactDOM.render(
         <Route exact path="/customer/register" component = { CustomerRegistration }></Route>
         <Route exact path="/categories" component = { Categories }></Route>
         <Route exact path="/category/:id" component = { SingleCategory }></Route>
+        <Route path="/product/:id" component = { ProductInformation } />
         <Route exact path="/customer/orders" component = { Orders }></Route>
         <Route exact path="/admin/login" component = { AdministratorLogin }></Route>
         <Route exact path="/admin/home" component = { AdministratorHome }></Route>

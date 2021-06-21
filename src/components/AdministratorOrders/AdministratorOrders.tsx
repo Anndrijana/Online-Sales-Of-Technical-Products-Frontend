@@ -63,12 +63,12 @@ export default class AdministratorOrders extends React.Component {
         this.setCartVisibleState(true);
     }
 
-    private getLatestPriceBeforeDate(article: any, latestDate: any) {
+    private getLatestPriceBeforeDate(product: any, latestDate: any) {
         const cartTimestamp = new Date(latestDate).getTime();
 
-        let price = article.articlePrices[0];
+        let price = product.prices[0];
 
-        for (let ap of article.articlePrices) {
+        for (let ap of product.prices) {
             const articlePriceTimestamp = new Date(ap.createdAt).getTime();
 
             if (articlePriceTimestamp < cartTimestamp) {
@@ -210,6 +210,7 @@ export default class AdministratorOrders extends React.Component {
                         <Table hover size="sm">
                             <thead>
                                 <tr>
+                                    <th>Image</th>
                                     <th>Category</th>
                                     <th>Article</th>
                                     <th className="text-right">Quantity</th>
@@ -219,13 +220,14 @@ export default class AdministratorOrders extends React.Component {
                             </thead>
                             <tbody>
                                 { this.state.cart?.productShoppingCarts.map(item => {
-                                    const articlePrice = this.getLatestPriceBeforeDate(item.product, this.state.cart?.createdAt);
+                                    const productPrice = this.getLatestPriceBeforeDate(item.product, this.state.cart?.createdAt);
 
-                                    const price = Number(articlePrice.price).toFixed(2);
-                                    const total = Number(articlePrice.price * item.quantity).toFixed(2);
+                                    const price = Number(productPrice.price).toFixed(2);
+                                    const total = Number(productPrice.price * item.quantity).toFixed(2);
 
                                     return (
                                         <tr>
+                                            <img src= { item.product.images[item.product.images?.length-1].imagePath } alt="" width="100px"></img>
                                             <td>{ item.product.category.categoryName }</td>
                                             <td>{ item.product.productName }</td>
                                             <td className="text-right">{ item.quantity }</td>
@@ -237,6 +239,7 @@ export default class AdministratorOrders extends React.Component {
                             </tbody>
                             <tfoot>
                                 <tr>
+                                    <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
