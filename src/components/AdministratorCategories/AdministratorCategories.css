@@ -54,4 +54,8 @@
     color: white
 }
 
+.back-card {
+    background-image: linear-gradient(white, #149dff, white);
+}
+
 

@@ -226,30 +226,33 @@ class AdministratorProducts extends React.Component {
             <Container>
                 <RoledNavbar role="administrator" />
 
-                <Card>
-                    <Card.Body>
+                <Card className="card-admin">
+                    <Card.Body className="back-card">
                         <Card.Title>
-                            <FontAwesomeIcon icon={ faListAlt } /> Products
+                            <FontAwesomeIcon icon={ faListAlt } color="#149dff" size="lg"/> List of all products
                         </Card.Title>
 
-                        <Table hover size="sm" bordered>
+                        <Table className="admin-table" hover size="sm" bordered>
                             <thead>
                                 <tr>
-                                    <th colSpan={ 6 }></th>
+                                    <th colSpan={ 10 }></th>
                                     <th className="text-center">
-                                        <Button variant="primary" size="sm"
+                                        <Button className="button-admin" variant="primary" size="sm"
                                             onClick={ () => this.showAddModal() }>
                                             <FontAwesomeIcon icon={ faPlus } /> Add
                                         </Button>
                                     </th>
                                 </tr>
-                                <tr>
+                                <tr className="tr-admin">
                                     <th className="text-right">ID</th>
                                     <th>Name</th>
                                     <th>Category</th>
                                     <th>Status</th>
+                                    <th></th>
                                     <th>Promoted</th>
+                                    <th></th>
                                     <th className="text-right">Price</th>
+                                    <th></th>
                                     <th className="text-right">Amount</th>
                                     <th></th>
                                 </tr>
@@ -261,16 +264,19 @@ class AdministratorProducts extends React.Component {
                                         <td>{ product.productName }</td>
                                         <td>{ product.category?.categoryName }</td>
                                         <td>{ product.productStatus }</td>
+                                        <td></td>
                                         <td>{ product.isPromoted ? 'Yes' : 'No' }</td>
+                                        <td></td>
                                         <td className="text-right">{ product.price }</td>
+                                        <td></td>
                                         <td className="text-right">{ product.productAmount }</td>
                                         <td className="text-center">
                                             <Link to={ "/admin/home/image/" + product.productId }
-                                                  className="btn btn-sm btn-info mr-3">
+                                                  className="btn btn-sm btn-info mr-3" style={ {"width":"75%", "marginLeft": "20px"}}>
                                                 <FontAwesomeIcon icon={ faImages } /> Images
                                             </Link>
 
-                                            <Button variant="info" size="sm"
+                                            <Button className="button-admin" variant="info" size="sm"
                                                 onClick={ () => this.showEditModal(product) }>
                                                 <FontAwesomeIcon icon={ faEdit } /> Edit
                                             </Button>
@@ -291,11 +297,11 @@ class AdministratorProducts extends React.Component {
                             }
                         } }>
                     <Modal.Header closeButton>
-                        <Modal.Title>Add new product</Modal.Title>
+                        <Modal.Title className="admin-title">Add new product</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>
+                    <Modal.Body className="modal-admin">
                         <Form.Group>
-                            <Form.Label htmlFor="add-categoryId">Category</Form.Label>
+                            <Form.Label htmlFor="add-categoryId">Category name:</Form.Label>
                             <Form.Control id="add-categoryId" as="select" value={ this.state.addModal.categoryId.toString() }
                                 onChange={ (e) => this.addModalCategoryChanged(e as any) }>
                                 { this.state.categories.map(category => (
@@ -306,40 +312,40 @@ class AdministratorProducts extends React.Component {
                             </Form.Control>
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label htmlFor="add-productName">Name</Form.Label>
+                            <Form.Label htmlFor="add-productName">Product name:</Form.Label>
                             <Form.Control id="add-productName" type="text" value={ this.state.addModal.productName }
                                 onChange={ (e) => this.setAddModalStringFieldState('productName', e.target.value) } />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label htmlFor="add-shortDesc">Short text</Form.Label>
+                            <Form.Label htmlFor="add-shortDesc">Short text:</Form.Label>
                             <Form.Control id="add-shortDesc" type="text" value={ this.state.addModal.shortDesc }
                                 onChange={ (e) => this.setAddModalStringFieldState('shortDesc', e.target.value) } />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label htmlFor="add-detailedDesc">Detailed text</Form.Label>
+                            <Form.Label htmlFor="add-detailedDesc">Detailed text:</Form.Label>
                             <Form.Control id="add-detailedDesc" as="textarea" value={ this.state.addModal.detailedDesc }
                                 onChange={ (e) => this.setAddModalStringFieldState('detailedDesc', e.target.value) }
                                 rows={ 10 } />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label htmlFor="add-price">Price</Form.Label>
+                            <Form.Label htmlFor="add-price">Product price:</Form.Label>
                             <Form.Control id="add-price" type="number" min={ 0.01 } step={ 0.01 } value={ this.state.addModal.price }
                                 onChange={ (e) => this.setAddModalNumberFieldState('price', e.target.value) } />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label htmlFor="add-productAmount">Product amount</Form.Label>
+                            <Form.Label htmlFor="add-productAmount">Product amount:</Form.Label>
                             <Form.Control id="add-productAmount" type="number" min={ 0 } step={ 1 } value={ this.state.addModal.productAmount }
                                 onChange={ (e) => this.setAddModalNumberFieldState('productAmount', e.target.value) } />
                         </Form.Group>
 
                         <Form.Group>
-                            <Form.Label htmlFor="add-photo">Product photo</Form.Label>
+                            <Form.Label htmlFor="add-photo">Product image:</Form.Label>
                             <Form.File id="add-photo" />
                         </Form.Group>
 
                         <Form.Group>
-                            <Button variant="primary" onClick={ () => this.doAddProduct() }>
-                                <FontAwesomeIcon icon={ faPlus } /> Add new product
+                            <Button className="button-admin-modal" variant="primary" onClick={ () => this.doAddProduct() }>
+                                <FontAwesomeIcon icon={ faPlus } /> Add
                             </Button>
                         </Form.Group>
                         { this.state.addModal.message ? (
@@ -351,27 +357,27 @@ class AdministratorProducts extends React.Component {
                 <Modal size="lg" centered show={ this.state.editModal.visible }
                        onHide={ () => this.setEditModalVisibleState(false) }>
                     <Modal.Header closeButton>
-                        <Modal.Title>Edit product</Modal.Title>
+                        <Modal.Title className="admin-title">Edit old product</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>
+                    <Modal.Body className="modal-admin">
                         <Form.Group>
-                            <Form.Label htmlFor="edit-productName">Name</Form.Label>
+                            <Form.Label htmlFor="edit-productName">Product name:</Form.Label>
                             <Form.Control id="edit-productName" type="text" value={ this.state.editModal.productName }
                                 onChange={ (e) => this.setEditModalStringFieldState('productName', e.target.value) } />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label htmlFor="edit-shortDesc">Short text</Form.Label>
+                            <Form.Label htmlFor="edit-shortDesc">Short text:</Form.Label>
                             <Form.Control id="edit-shortDesc" type="text" value={ this.state.editModal.shortDesc }
                                 onChange={ (e) => this.setEditModalStringFieldState('shortDesc', e.target.value) } />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label htmlFor="edit-detailedDesc">Detailed text</Form.Label>
+                            <Form.Label htmlFor="edit-detailedDesc">Detailed text:</Form.Label>
                             <Form.Control id="edit-detailedDesc" as="textarea" value={ this.state.editModal.detailedDesc }
                                 onChange={ (e) => this.setEditModalStringFieldState('detailedDesc', e.target.value) }
                                 rows={ 10 } />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label htmlFor="edit-productStatus">Status</Form.Label>
+                            <Form.Label htmlFor="edit-productStatus">Product status:</Form.Label>
                             <Form.Control id="edit-productStatus" as="select" value={ this.state.editModal.productStatus.toString() }
                                 onChange={ (e) => this.setEditModalStringFieldState('productStatus', e.target.value) }>
                                 <option value="available">Available</option>
@@ -380,7 +386,7 @@ class AdministratorProducts extends React.Component {
                             </Form.Control>
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label htmlFor="edit-isPromoted">Promoted</Form.Label>
+                            <Form.Label htmlFor="edit-isPromoted">Promoted:</Form.Label>
                             <Form.Control id="edit-isPromoted" as="select" value={ this.state.editModal.isPromoted.toString() }
                                 onChange={ (e) => this.setEditModalNumberFieldState('isPromoted', e.target.value) }>
                                 <option value="0">Not promoted</option>
@@ -388,19 +394,19 @@ class AdministratorProducts extends React.Component {
                             </Form.Control>
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label htmlFor="edit-price">Price</Form.Label>
+                            <Form.Label htmlFor="edit-price">Product price:</Form.Label>
                             <Form.Control id="edit-price" type="number" min={ 0.01 } step={ 0.01 } value={ this.state.editModal.price }
                                 onChange={ (e) => this.setEditModalNumberFieldState('price', e.target.value) } />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label htmlFor="edit-productAmount">Product amount</Form.Label>
+                            <Form.Label htmlFor="edit-productAmount">Product amount:</Form.Label>
                             <Form.Control id="edit-productAmount" type="number" min={ 0 } step={ 1 } value={ this.state.editModal.productAmount }
                                 onChange={ (e) => this.setEditModalNumberFieldState('productAmount', e.target.value) } />
                         </Form.Group>
 
                         <Form.Group>
-                            <Button variant="primary" onClick={ () => this.doEditProduct() }>
-                                <FontAwesomeIcon icon={ faSave } /> Edit product
+                            <Button className="button-admin-modal" variant="primary" onClick={ () => this.doEditProduct() }>
+                                <FontAwesomeIcon icon={ faSave } /> Edit
                             </Button>
                         </Form.Group>
                         { this.state.editModal.message ? (

@@ -163,7 +163,7 @@ class AdministratorCategories extends React.Component {
                             <FontAwesomeIcon icon={ faListAlt } color="#149dff" size="lg"/> List of all categories
                         </Card.Title>
 
-                        <Table className="admin-table"hover size="sm" bordered>
+                        <Table className="admin-table" hover size="sm" bordered>
                             <thead>
                                 <tr>
                                     <th colSpan={ 4 }></th>
@@ -175,7 +175,7 @@ class AdministratorCategories extends React.Component {
                                     </th>
                                 </tr>
                                 <tr className="tr-admin">
-                                    <th className="text-right">Category ID</th>
+                                    <th className="text-right">ID</th>
                                     <th className="text-right">Image</th>
                                     <th>Category name</th>
                                     <th className="text-right">Parent category ID</th>
