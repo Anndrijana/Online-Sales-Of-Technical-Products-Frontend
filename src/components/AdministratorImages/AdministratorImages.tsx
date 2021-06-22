@@ -77,16 +77,16 @@ class AdministratorImages extends React.Component<AdministratorImagesProp> {
             <Container>
                 <RoledNavbar role="administrator" />
 
-                <Card>
+                <Card className="card-admin3">
                     <Card.Body>
-                        <Card.Title>
-                            <FontAwesomeIcon icon={ faImages } /> Images
+                        <Card.Title className="admin-title">
+                            <FontAwesomeIcon icon={ faImages } size="lg" color="#C62E65"/> Product images
                         </Card.Title>
 
-                        <Nav className="mb-3">
+                        <Nav>
                             <Nav.Item>
-                                <Link to="/admin/home/product/" className="btn btn-sm btn-info">
-                                    <FontAwesomeIcon icon={ faBackward } /> Go back to articles
+                                <Link style={{"width": "100%", "marginBottom": "20px", "marginLeft": "40px"}} to="/admin/home/product/" className="btn btn-sm btn-info"> 
+                                    <FontAwesomeIcon icon={ faBackward } /> Go back to products
                                 </Link>
                             </Nav.Item>
                         </Nav>
@@ -96,15 +96,12 @@ class AdministratorImages extends React.Component<AdministratorImagesProp> {
                         </Row>
 
                         <Form className="mt-5">
-                            <p>
-                                <strong>Add a new image to this product</strong>
-                            </p>
                             <Form.Group>
-                                <Form.Label htmlFor="add-image">New product image</Form.Label>
-                                <Form.File id="add-image" />
+                                <Form.Label className="label2" htmlFor="add-image">Add a new image to this product</Form.Label>
+                                <Form.File className="form-file" id="add-image" />
                             </Form.Group>
                             <Form.Group>
-                                <Button variant="primary"
+                                <Button className="button-admin-image" 
                                         onClick={ () => this.doUpload() }>
                                     <FontAwesomeIcon icon={ faPlus } /> Upload image
                                 </Button>
@@ -119,7 +116,7 @@ class AdministratorImages extends React.Component<AdministratorImagesProp> {
     private printSingleImage(image: ImageType) {
         return (
             <Col xs="12" sm="6" md="4" lg="3">
-                <Card>
+                <Card className="card-image">
                     <Card.Body>
                         <img alt=""
                              src= { ApiConfig.IMAGE_PATH + image.imagePath }
@@ -129,11 +126,11 @@ class AdministratorImages extends React.Component<AdministratorImagesProp> {
                              src= { image.imagePath }
                              className="w-100" width="100px"/>
                     </Card.Body>
-                    <Card.Footer>
+                    <Card.Footer className="footer-image">
                         { this.state.images.length > 1 ? (
-                            <Button variant="danger" block
+                            <Button className="button-admin-delete" block
                                 onClick={ () => this.deleteImage(image.imageId) }>
-                                <FontAwesomeIcon icon={ faMinus } /> Delete image
+                                <FontAwesomeIcon icon={ faMinus } />
                             </Button>
                         ) : '' }
                     </Card.Footer>

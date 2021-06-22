@@ -17,6 +17,14 @@
     margin-bottom: 20px;
 }
 
+.button-admin-image {
+    width: 15%;
+    font-size: 18px;
+    margin-right: 30px;
+    margin-left: 30px;
+    margin-top: 20px;
+}
+
 .img-admin {
     border-radius: 50%;
 }
@@ -58,4 +66,35 @@
     background-image: linear-gradient(white, #149dff, white);
 }
 
+.card-admin3 {
+    border: transparent;
+    text-align: center;
+    font-size: 22px;
+}
+
+.label2 {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.form-file {
+    color: #C62E65
+}
+
+.button-admin-delete {
+    width: 40%;
+    margin-left: 60px;
+}
+
+.card-image {
+    border: 2px solid #C62E65;
+    width: 85%;
+    height: 100%;
+    margin-top: 25px
+}
+
+.footer-image {
+    background-color: white;
+    border: transparent
+}
 
