@@ -11,9 +11,9 @@ import ApiProductDto from '../../dtos/ProductDto';
 import RoledNavbar from '../RoledNavbar/RoledNavbar';
 
 
-interface AdministratorDashboardArticleState {
+interface AdministratorProductState {
     isAdministratorLoggedIn: boolean;
-    articles: ProductType[];
+    products: ProductType[];
     categories: CategoryType[];
     status: string[];
 
@@ -21,37 +21,39 @@ interface AdministratorDashboardArticleState {
         visible: boolean;
         message: string;
         
-        name: string;
+        productName: string;
         categoryId: number;
-        excerpt: string;
-        description: string;
+        shortDesc: string;
+        detailedDesc: string;
         price: number;
+        productAmount: number;
     };
 
     editModal: {
         visible: boolean;
         message: string;
 
-        articleId?: number;
-        name: string;
+        productId?: number;
+        productName: string;
         categoryId: number;
-        excerpt: string;
-        description: string;
-        status: string;
+        shortDesc: string;
+        detailedDesc: string;
+        productStatus: string;
         isPromoted: number;
         price: number;
+        productAmount: number;
     };
 }
 
 class AdministratorProducts extends React.Component {
-    state: AdministratorDashboardArticleState;
+    state: AdministratorProductState;
 
     constructor(props: Readonly<{}>) {
         super(props);
 
         this.state = {
             isAdministratorLoggedIn: true,
-            articles: [],
+            products: [],
             categories: [],
             status: [
                 "available",
@@ -63,24 +65,26 @@ class AdministratorProducts extends React.Component {
                 visible: false,
                 message: '',
 
-                name: '',
+                productName: '',
                 categoryId: 1,
-                excerpt: '',
-                description: '',
+                shortDesc: '',
+                detailedDesc: '',
                 price: 0.01,
+                productAmount: 0
             },
 
             editModal: {
                 visible: false,
                 message: '',
 
-                name: '',
+                productName: '',
                 categoryId: 1,
-                excerpt: '',
-                description: '',
-                status: 'available',
+                shortDesc: '',
+                detailedDesc: '',
+                productStatus: 'available',
                 isPromoted: 0,
                 price: 0.01,
+                productAmount: 0,
             },
         };
     }
@@ -135,7 +139,7 @@ class AdministratorProducts extends React.Component {
 
     componentDidMount() {
         this.getCategories();
-        this.getArticles();
+        this.getProducts();
     }
 
     private getCategories() {
@@ -154,7 +158,7 @@ class AdministratorProducts extends React.Component {
         const categories: CategoryType[] | undefined = data?.map(category => {
             return {
                 categoryId: category.categoryId,
-                name: category.categoryName,
+                categoryName: category.categoryName,
                 imagePath: category.imagePath,
                 parentCategoryId: category.parentCategoryId,
             };
@@ -165,38 +169,39 @@ class AdministratorProducts extends React.Component {
         }));
     }
 
-    private getArticles() {
-        api('/api/article/?join=articlePrices&join=photos&join=category', 'get', {}, 'administrator')
+    private getProducts() {
+        api('/api/product/?join=prices&join=images&join=category', 'get', {}, 'administrator')
         .then((res: ApiResponse) => {
             if (res.status === "error" || res.status === "login") {
                 this.setLogginState(false);
                 return;
             }
 
-            this.putArticlesInState(res.data);
+            this.putProductsInState(res.data);
         });
     }
 
-    private putArticlesInState(data?: ApiProductDto[]) {
-        const articles: ProductType[] | undefined = data?.map(article => {
+    private putProductsInState(data?: ApiProductDto[]) {
+        const products: ProductType[] | undefined = data?.map(product => {
             return {
-                articleId: article.productId,
-                name: article.productName,
-                excerpt: article.shortDesc,
-                description: article.detailedDesc,
-                imageUrl: article.images[0].imagePath,
-                price: article.prices[article.prices.length-1].price,
-                status: article.productStatus,
-                isPromoted: article.isPromoted,
-                articlePrices: article.prices,
-                photos: article.images,
-                category: article.category,
-                categoryId: article.categoryId,
+                productId: product.productId,
+                productName: product.productName,
+                shortDesc: product.shortDesc,
+                detailedDesc: product.detailedDesc,
+                productAmount: product.productAmount,
+                /*imagePath: product.images[0].imagePath,*/
+                price: product.prices[product.prices.length-1].price,
+                productStatus: product.productStatus,
+                isPromoted: product.isPromoted,
+                prices: product.prices,
+                images: product.images,
+                category: product.category,
+                categoryId: product.categoryId,
             };
         });
 
         this.setState(Object.assign(this.state, {
-            articles: articles,
+            products: products,
         }));
     }
 
@@ -224,7 +229,7 @@ class AdministratorProducts extends React.Component {
                 <Card>
                     <Card.Body>
                         <Card.Title>
-                            <FontAwesomeIcon icon={ faListAlt } /> Articles
+                            <FontAwesomeIcon icon={ faListAlt } /> Products
                         </Card.Title>
 
                         <Table hover size="sm" bordered>
@@ -245,26 +250,28 @@ class AdministratorProducts extends React.Component {
                                     <th>Status</th>
                                     <th>Promoted</th>
                                     <th className="text-right">Price</th>
+                                    <th className="text-right">Amount</th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                { this.state.articles.map(article => (
+                                { this.state.products.map(product => (
                                     <tr>
-                                        <td className="text-right">{ article.productId }</td>
-                                        <td>{ article.productName }</td>
-                                        <td>{ article.category?.categoryName }</td>
-                                        <td>{ article.productStatus }</td>
-                                        <td>{ article.isPromoted ? 'Yes' : 'No' }</td>
-                                        <td className="text-right">{ article.price }</td>
+                                        <td className="text-right">{ product.productId }</td>
+                                        <td>{ product.productName }</td>
+                                        <td>{ product.category?.categoryName }</td>
+                                        <td>{ product.productStatus }</td>
+                                        <td>{ product.isPromoted ? 'Yes' : 'No' }</td>
+                                        <td className="text-right">{ product.price }</td>
+                                        <td className="text-right">{ product.productAmount }</td>
                                         <td className="text-center">
-                                            <Link to={ "/administrator/dashboard/photo/" + article.productId }
+                                            <Link to={ "/admin/home/image/" + product.productId }
                                                   className="btn btn-sm btn-info mr-3">
-                                                <FontAwesomeIcon icon={ faImages } /> Photos
+                                                <FontAwesomeIcon icon={ faImages } /> Images
                                             </Link>
 
                                             <Button variant="info" size="sm"
-                                                onClick={ () => this.showEditModal(article) }>
+                                                onClick={ () => this.showEditModal(product) }>
                                                 <FontAwesomeIcon icon={ faEdit } /> Edit
                                             </Button>
                                         </td>
@@ -284,7 +291,7 @@ class AdministratorProducts extends React.Component {
                             }
                         } }>
                     <Modal.Header closeButton>
-                        <Modal.Title>Add new article</Modal.Title>
+                        <Modal.Title>Add new product</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <Form.Group>
@@ -299,19 +306,19 @@ class AdministratorProducts extends React.Component {
                             </Form.Control>
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label htmlFor="add-name">Name</Form.Label>
-                            <Form.Control id="add-name" type="text" value={ this.state.addModal.name }
-                                onChange={ (e) => this.setAddModalStringFieldState('name', e.target.value) } />
+                            <Form.Label htmlFor="add-productName">Name</Form.Label>
+                            <Form.Control id="add-productName" type="text" value={ this.state.addModal.productName }
+                                onChange={ (e) => this.setAddModalStringFieldState('productName', e.target.value) } />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label htmlFor="add-excerpt">Short text</Form.Label>
-                            <Form.Control id="add-excerpt" type="text" value={ this.state.addModal.excerpt }
-                                onChange={ (e) => this.setAddModalStringFieldState('excerpt', e.target.value) } />
+                            <Form.Label htmlFor="add-shortDesc">Short text</Form.Label>
+                            <Form.Control id="add-shortDesc" type="text" value={ this.state.addModal.shortDesc }
+                                onChange={ (e) => this.setAddModalStringFieldState('shortDesc', e.target.value) } />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label htmlFor="add-description">Detailed text</Form.Label>
-                            <Form.Control id="add-description" as="textarea" value={ this.state.addModal.description }
-                                onChange={ (e) => this.setAddModalStringFieldState('description', e.target.value) }
+                            <Form.Label htmlFor="add-detailedDesc">Detailed text</Form.Label>
+                            <Form.Control id="add-detailedDesc" as="textarea" value={ this.state.addModal.detailedDesc }
+                                onChange={ (e) => this.setAddModalStringFieldState('detailedDesc', e.target.value) }
                                 rows={ 10 } />
                         </Form.Group>
                         <Form.Group>
@@ -319,15 +326,20 @@ class AdministratorProducts extends React.Component {
                             <Form.Control id="add-price" type="number" min={ 0.01 } step={ 0.01 } value={ this.state.addModal.price }
                                 onChange={ (e) => this.setAddModalNumberFieldState('price', e.target.value) } />
                         </Form.Group>
+                        <Form.Group>
+                            <Form.Label htmlFor="add-productAmount">Product amount</Form.Label>
+                            <Form.Control id="add-productAmount" type="number" min={ 0 } step={ 1 } value={ this.state.addModal.productAmount }
+                                onChange={ (e) => this.setAddModalNumberFieldState('productAmount', e.target.value) } />
+                        </Form.Group>
 
                         <Form.Group>
-                            <Form.Label htmlFor="add-photo">Article photo</Form.Label>
+                            <Form.Label htmlFor="add-photo">Product photo</Form.Label>
                             <Form.File id="add-photo" />
                         </Form.Group>
 
                         <Form.Group>
-                            <Button variant="primary" onClick={ () => this.doAddArticle() }>
-                                <FontAwesomeIcon icon={ faPlus } /> Add new article
+                            <Button variant="primary" onClick={ () => this.doAddProduct() }>
+                                <FontAwesomeIcon icon={ faPlus } /> Add new product
                             </Button>
                         </Form.Group>
                         { this.state.addModal.message ? (
@@ -339,29 +351,29 @@ class AdministratorProducts extends React.Component {
                 <Modal size="lg" centered show={ this.state.editModal.visible }
                        onHide={ () => this.setEditModalVisibleState(false) }>
                     <Modal.Header closeButton>
-                        <Modal.Title>Edit article</Modal.Title>
+                        <Modal.Title>Edit product</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <Form.Group>
-                            <Form.Label htmlFor="edit-name">Name</Form.Label>
-                            <Form.Control id="edit-name" type="text" value={ this.state.editModal.name }
-                                onChange={ (e) => this.setEditModalStringFieldState('name', e.target.value) } />
+                            <Form.Label htmlFor="edit-productName">Name</Form.Label>
+                            <Form.Control id="edit-productName" type="text" value={ this.state.editModal.productName }
+                                onChange={ (e) => this.setEditModalStringFieldState('productName', e.target.value) } />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label htmlFor="edit-excerpt">Short text</Form.Label>
-                            <Form.Control id="edit-excerpt" type="text" value={ this.state.editModal.excerpt }
-                                onChange={ (e) => this.setEditModalStringFieldState('excerpt', e.target.value) } />
+                            <Form.Label htmlFor="edit-shortDesc">Short text</Form.Label>
+                            <Form.Control id="edit-shortDesc" type="text" value={ this.state.editModal.shortDesc }
+                                onChange={ (e) => this.setEditModalStringFieldState('shortDesc', e.target.value) } />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label htmlFor="edit-description">Detailed text</Form.Label>
-                            <Form.Control id="edit-description" as="textarea" value={ this.state.editModal.description }
-                                onChange={ (e) => this.setEditModalStringFieldState('description', e.target.value) }
+                            <Form.Label htmlFor="edit-detailedDesc">Detailed text</Form.Label>
+                            <Form.Control id="edit-detailedDesc" as="textarea" value={ this.state.editModal.detailedDesc }
+                                onChange={ (e) => this.setEditModalStringFieldState('detailedDesc', e.target.value) }
                                 rows={ 10 } />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label htmlFor="edit-status">Status</Form.Label>
-                            <Form.Control id="edit-status" as="select" value={ this.state.editModal.status.toString() }
-                                onChange={ (e) => this.setEditModalStringFieldState('status', e.target.value) }>
+                            <Form.Label htmlFor="edit-productStatus">Status</Form.Label>
+                            <Form.Control id="edit-productStatus" as="select" value={ this.state.editModal.productStatus.toString() }
+                                onChange={ (e) => this.setEditModalStringFieldState('productStatus', e.target.value) }>
                                 <option value="available">Available</option>
                                 <option value="visible">Visible</option>
                                 <option value="hidden">Hidden</option>
@@ -380,10 +392,15 @@ class AdministratorProducts extends React.Component {
                             <Form.Control id="edit-price" type="number" min={ 0.01 } step={ 0.01 } value={ this.state.editModal.price }
                                 onChange={ (e) => this.setEditModalNumberFieldState('price', e.target.value) } />
                         </Form.Group>
+                        <Form.Group>
+                            <Form.Label htmlFor="edit-productAmount">Product amount</Form.Label>
+                            <Form.Control id="edit-productAmount" type="number" min={ 0 } step={ 1 } value={ this.state.editModal.productAmount }
+                                onChange={ (e) => this.setEditModalNumberFieldState('productAmount', e.target.value) } />
+                        </Form.Group>
 
                         <Form.Group>
-                            <Button variant="primary" onClick={ () => this.doEditArticle() }>
-                                <FontAwesomeIcon icon={ faSave } /> Edit article
+                            <Button variant="primary" onClick={ () => this.doEditProduct() }>
+                                <FontAwesomeIcon icon={ faSave } /> Edit product
                             </Button>
                         </Form.Group>
                         { this.state.editModal.message ? (
@@ -399,15 +416,16 @@ class AdministratorProducts extends React.Component {
         this.setAddModalStringFieldState('message', '');
 
         this.setAddModalStringFieldState('name', '');
-        this.setAddModalStringFieldState('excerpt', '');
-        this.setAddModalStringFieldState('description', '');
+        this.setAddModalStringFieldState('shortDescription', '');
+        this.setAddModalStringFieldState('detailedDescription', '');
         this.setAddModalNumberFieldState('categoryId', '1');
         this.setAddModalNumberFieldState('price', '0.01');
+        this.setAddModalNumberFieldState('productAmount', '0');
 
         this.setAddModalVisibleState(true);
     }
 
-    private doAddArticle() {
+    private doAddProduct() {
         const filePicker: any = document.getElementById('add-photo');
 
         if (filePicker?.files.length === 0) {
@@ -415,12 +433,13 @@ class AdministratorProducts extends React.Component {
             return;
         }
 
-        api('/api/article/', 'post', {
+        api('/api/product/', 'post', {
             categoryId: this.state.addModal.categoryId,
-            name: this.state.addModal.name,
-            excerpt: this.state.addModal.excerpt,
-            description: this.state.addModal.description,
+            productName: this.state.addModal.productName,
+            shortDesc: this.state.addModal.shortDesc,
+            detailedDesc: this.state.addModal.detailedDesc,
             price: this.state.addModal.price,
+            productAmount: this.state.addModal.productAmount,
         }, 'administrator')
         .then(async (res: ApiResponse) => {
             if (res.status === "login") {
@@ -433,45 +452,47 @@ class AdministratorProducts extends React.Component {
                 return;
             }
 
-            const articleId: number = res.data.articleId;
+            const productId: number = res.data.productId;
 
             const file = filePicker.files[0];
-            await this.uploadArticlePhoto(articleId, file);
+            await this.uploadProductPhoto(productId, file);
 
             this.setAddModalVisibleState(false);
-            this.getArticles();
+            this.getProducts();
         });
     }
 
-    private async uploadArticlePhoto(articleId: number, file: File) {
-        return await apiFile('/api/article/' + articleId + '/uploadPhoto/', 'photo', file, 'administrator');
+    private async uploadProductPhoto(productId: number, file: File) {
+        return await apiFile('/api/product/' + productId + '/uploadImage/', 'image', file, 'administrator');
     }
 
-    private async showEditModal(article: ProductType) {
+    private async showEditModal(product: ProductType) {
         this.setEditModalStringFieldState('message', '');
-        this.setEditModalNumberFieldState('articleId', article.productId);
-        this.setEditModalStringFieldState('name', String(article.productName));
-        this.setEditModalStringFieldState('excerpt', String(article.shortDesc));
-        this.setEditModalStringFieldState('description', String(article.detailedDesc));
-        this.setEditModalStringFieldState('status', String(article.productStatus));
-        this.setEditModalNumberFieldState('price', article.price);
-        this.setEditModalNumberFieldState('isPromoted', article.isPromoted);
+        this.setEditModalNumberFieldState('productId', product.productId);
+        this.setEditModalStringFieldState('productName', String(product.productName));
+        this.setEditModalStringFieldState('shortDesc', String(product.shortDesc));
+        this.setEditModalStringFieldState('detailedDesc', String(product.detailedDesc));
+        this.setEditModalStringFieldState('productStatus', String(product.productStatus));
+        this.setEditModalNumberFieldState('price', product.price);
+        this.setEditModalNumberFieldState('isPromoted', product.isPromoted);
+        this.setEditModalNumberFieldState('productAmount', product.productAmount);
 
-        if (!article.category?.categoryId) {
+        if (!product.category?.categoryId) {
             return;
         }
 
         this.setEditModalVisibleState(true);
     }
 
-    private doEditArticle() {
-        api('/api/article/' + this.state.editModal.articleId, 'patch', {
-            name: this.state.editModal.name,
-            excerpt: this.state.editModal.excerpt,
-            description: this.state.editModal.description,
+    private doEditProduct() {
+        api('/api/product/' + this.state.editModal.productId, 'patch', {
+            productName: this.state.editModal.productName,
+            shortDesc: this.state.editModal.shortDesc,
+            detailedDesc: this.state.editModal.detailedDesc,
             price: this.state.editModal.price,
-            status: this.state.editModal.status,
+            productStatus: this.state.editModal.productStatus,
             isPromoted: this.state.editModal.isPromoted,
+            productAmount: this.state.editModal.productAmount,
         }, 'administrator')
         .then((res: ApiResponse) => {
             if (res.status === "login") {
@@ -485,7 +506,7 @@ class AdministratorProducts extends React.Component {
             }
 
             this.setEditModalVisibleState(false);
-            this.getArticles();
+            this.getProducts();
         });
     }
 }

@@ -56,7 +56,9 @@ export default class SingleProduct extends React.Component<SingleProductProp> {
                
                 <Card className="mbb-3">
                     <Card.Header className="card-img">
-                    <Card.Img variant="top" src={ this.props.product.imageUrl } width="300" height="170"/>
+                    <img alt=" "
+                             src= { /*ApiConfig.IMAGE_PATH + */ this.props.product.imageUrl }
+                             className="w-100" width="300" height="170"/>
                     </Card.Header>
                 
                     <Card.Body>

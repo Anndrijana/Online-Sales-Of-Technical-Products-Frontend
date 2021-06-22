@@ -25,6 +25,7 @@ import ProductInformation from './components/ProductInformation/ProductInformati
 import AdministratorProducts from './components/AdministratorProducts/AdministratorProducts';
 import CategoriesForVisitors from './components/CategoriesForVisitors/CategoriesForVisitors';
 import SingleCategoryForVisitors from './components/SingleCategoryForVisitors/SingleCategoryForVisitors';
+import AdministratorImages from './components/AdministratorImages/AdministratorImages';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -47,6 +48,7 @@ ReactDOM.render(
         <Route exact path="/customer/logout" component = { CustomerSignOut }></Route>
         <Route exact path="/visitor/categories" component = { CategoriesForVisitors }></Route>
         <Route exact path="/visitor/category/:id" component = { SingleCategoryForVisitors }></Route>
+        <Route exact path="/admin/home/image/:id" component = { AdministratorImages }></Route>
       </Switch>
     </HashRouter>
   </React.StrictMode>,
