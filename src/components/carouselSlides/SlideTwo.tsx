@@ -1,5 +1,7 @@
 import * as React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
+import Img from './login.jpg';
 
 const SContainer = styled.div`
   align-items: center;
@@ -16,13 +18,13 @@ const SlideTwo = () => (
   <SContainer>
     <STextWrapper>
       <h1>
-        Header 1
+        Start shopping...
       </h1>
-      <p>
-        A short paragraph with some descriptive text.
+      <p className="centerLink">
+      <Link className="link5" to='/categories'>NOW</Link>
       </p>
     </STextWrapper>
-    <img src="https://via.placeholder.com/400/3D1D73/ffffff" alt=""/>
+    <img src={ Img } alt="" width="1000px"/>
   </SContainer>
 );
 

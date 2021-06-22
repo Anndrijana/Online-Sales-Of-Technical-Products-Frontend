@@ -3,7 +3,7 @@ import api, { ApiResponse } from '../../api/api';
 import { Redirect } from 'react-router-dom';
 import { Container, Card, Row, Col, Form, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBoxOpen } from '@fortawesome/free-solid-svg-icons';
+import { faInfo } from '@fortawesome/free-solid-svg-icons';
 import ApiProductDto from '../../dtos/ProductDto';
 import ProductType from '../../types/ProductType';
 import RoledNavbar from '../RoledNavbar/RoledNavbar';
@@ -54,11 +54,11 @@ class AddToCartInput extends React.Component<AddToShoppingCartInputProp> {
             <Form.Group>
                 <Row>
                     <Col xs="7">
-                        <Form.Control type="number" min="1" step="1" value={ this.state.quantity }
+                        <Form.Control className="input" type="number" min="1" step="1" value={ this.state.quantity }
                                         onChange={ (e) => this.quantityChanged(e as any) } />
                     </Col>
                     <Col xs="5">
-                        <Button variant="secondary" block
+                        <Button className="btn-info2" variant="secondary" block
                                 onClick={ () => this.addToShoppingCart() }>
                             Buy
                         </Button>
@@ -176,16 +176,17 @@ export default class ProductInformation extends React.Component<ProductProp> {
             <Container>
                 <RoledNavbar role="customer" />
 
-                <Card>
+                <Card className="card-admin">
+            
                     <Card.Body>
-                        <Card.Title>
-                            <FontAwesomeIcon icon={ faBoxOpen } /> {
+                        <div className="title-product">
+                        <FontAwesomeIcon icon={ faInfo } size="lg" color="#C62E65" /> {
                                 this.state.product ?
                                 this.state.product?.productName :
                                 'Product not found'
                             }
-                        </Card.Title>
-
+                        </div>
+                        
                         { this.printOptionalMessage() }
 
                         {
@@ -193,6 +194,7 @@ export default class ProductInformation extends React.Component<ProductProp> {
                             ( this.renderProductData(this.state.product) ) :
                             ''
                         }
+
                     </Card.Body>
                 </Card>
             </Container>
@@ -202,24 +204,10 @@ export default class ProductInformation extends React.Component<ProductProp> {
     renderProductData(product: ApiProductDto) {
         return (
             <Row>
-                <Col xs="12" lg="8">
-                    <div className="excerpt">
-                        { product.shortDesc }
-                    </div>
-
-                    <hr />
-                    
-                    <div className="description">
-                        { product.detailedDesc }
-                    </div>
-
-                    <hr />
-
-                </Col>
 
                 <Col xs="12" lg="4">
                     <Row>
-                        <Col xs="12" className="mb-3">
+                        <Col className="image-col" xs="12">
                             <img alt=""
                                     src={ product.images[0].imagePath }
                                     className="w-100" />
@@ -228,27 +216,57 @@ export default class ProductInformation extends React.Component<ProductProp> {
 
                     <Row>
                         { product.images.slice(1).map(image => (
-                            <Col xs="12" sm="6">
+                            <Col className="image-col" xs="12">
                                 <img alt=""
                                         src={ image.imagePath }
-                                        className="w-100 mb-3" />
+                                        className="w-100" />
                             </Col>
                         ), this) }
                     </Row>
+                </Col>
+
+                <Col xs="12" lg="8">
+                    <div className="div-info">
+                        Short description:
+                    </div>
+                    <div className="info-p">
+                        { product.shortDesc }
+                    </div>
+
+                    
+                    
+                    <div className="div-info">
+                        Detailed description:
+                    </div>
+                    <div className="info-p">
+                        { product.detailedDesc }
+                    </div>
+
+                    
+                    
+                    <div className="div-info">
+                        Category name:
+                    </div>
+                    <div className="info-p">
+                        { product.category?.categoryName }
+                    </div>
+
+                
 
                     <Row>
-                        <Col xs="12" className="text-center mb-3">
-                            <b>
-                                Price: { Number(product.prices[product.prices.length-1].price).toFixed(2) + ' EUR' }
+                        <Col className="price-col" xs="12">
+                            <b> 
+                                Price for product: { Number(product.prices[product.prices.length-1].price).toFixed(2) + ' EUR' }
                             </b>
                         </Col>
                     </Row>
 
                     <Row>
-                        <Col xs="12" className="mt-3">
+                        <Col xs="12">
                             <AddToCartInput product = { product } />
                         </Col>
                     </Row>
+
                 </Col>
             </Row>
         );
