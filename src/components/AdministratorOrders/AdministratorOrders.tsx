@@ -2,7 +2,7 @@ import React from 'react';
 import api, { ApiResponse } from '../../api/api';
 import { Redirect } from 'react-router-dom';
 import { Container, Card, Table, Modal, Button, Tabs, Tab } from 'react-bootstrap';
-import { faCartArrowDown, faBoxOpen } from '@fortawesome/free-solid-svg-icons';
+import { faBoxOpen } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import OrderType from '../../types/OrderType';
 import ApiOrderDto from '../../dtos/OrderDto';
@@ -133,12 +133,12 @@ export default class AdministratorOrders extends React.Component {
 
     renderOrders(withStatus: "accepted" | "rejected" | "unresolved" | "shipped") {
         return (
-            <Table hover size="sm" bordered>
-                <thead>
+            <Table className="admin-table" hover size="sm" bordered>
+                <thead className="order-thead">
                     <tr>
-                        <th className="text-right pr-2">Order ID</th>
-                        <th>Date</th>
-                        <th>Cart</th>
+                        <th className="text-right pr-2">ID</th>
+                        <th>Created date</th>
+                        <th>Shopping cart</th>
                         <th>Options</th>
                     </tr>
                 </thead>
@@ -176,13 +176,13 @@ export default class AdministratorOrders extends React.Component {
             <Container>
                 <RoledNavbar role="administrator" />
 
-                <Card>
+                <Card className="card-admin">
                     <Card.Body>
-                        <Card.Title>
-                            <FontAwesomeIcon icon={ faCartArrowDown } /> Orders
+                        <Card.Title className="admin-title2">
+                            All orders
                         </Card.Title>
 
-                        <Tabs defaultActiveKey="unresolved" id="order-tabs" className="ml-0 mb-0">
+                        <Tabs className="tabs" defaultActiveKey="unresolved" id="order-tabs">
                             <Tab eventKey="unresolved" title="Unresolved">
                                 { this.renderOrders("unresolved") }
                             </Tab>
@@ -204,7 +204,7 @@ export default class AdministratorOrders extends React.Component {
 
                 <Modal size="lg" centered show={ this.state.cartVisible } onHide={ () => this.hideCart() }>
                     <Modal.Header closeButton>
-                        <Modal.Title>Order content</Modal.Title>
+                        <Modal.Title className="admin-title2">Order product</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <Table hover size="sm">
@@ -212,7 +212,7 @@ export default class AdministratorOrders extends React.Component {
                                 <tr>
                                     <th>Image</th>
                                     <th>Category</th>
-                                    <th>Article</th>
+                                    <th>Product</th>
                                     <th className="text-right">Quantity</th>
                                     <th className="text-right">Price</th>
                                     <th className="text-right">Total</th>
@@ -260,9 +260,9 @@ export default class AdministratorOrders extends React.Component {
         if (order.orderStatus === 'unresolved') {
             return (
                 <>
-                    <Button type="button" variant="primary" size="sm" className="mr-1"
+                    <Button type="button" size="sm" className="mr-1"
                         onClick={ () => this.changeStatus(order.orderId, 'accepted') }>Accept</Button>
-                    <Button type="button" variant="danger" size="sm"
+                    <Button type="button" size="sm"
                         onClick={ () => this.changeStatus(order.orderId, 'rejected') }>Reject</Button>
                 </>
             );
@@ -271,9 +271,9 @@ export default class AdministratorOrders extends React.Component {
         if (order.orderStatus === 'accepted') {
             return (
                 <>
-                    <Button type="button" variant="primary" size="sm" className="mr-1"
+                    <Button type="button" size="sm" className="mr-1"
                         onClick={ () => this.changeStatus(order.orderId, 'shipped') }>Ship</Button>
-                    <Button type="button" variant="secondary" size="sm"
+                    <Button type="button" size="sm"
                         onClick={ () => this.changeStatus(order.orderId, 'unresolved') }>Return to unresolved</Button>
                 </>
             );
@@ -290,7 +290,7 @@ export default class AdministratorOrders extends React.Component {
         if (order.orderStatus === 'rejected') {
             return (
                 <>
-                    <Button type="button" variant="secondary" size="sm"
+                    <Button type="button" size="sm"
                         onClick={ () => this.changeStatus(order.orderId, 'unresolved') }>Return to unresolved</Button>
                 </>
             );

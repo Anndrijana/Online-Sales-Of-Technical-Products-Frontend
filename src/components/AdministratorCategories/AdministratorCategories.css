@@ -149,3 +149,14 @@
     margin-right: 300px;
 }
 
+.order-thead {
+    background-color: #149dff;
+    color: white
+}
+
+.tabs {
+    margin-bottom: 2px;
+    font-size: 20px;
+    background-color: transparent;
+    font-weight: bolder;
+}
