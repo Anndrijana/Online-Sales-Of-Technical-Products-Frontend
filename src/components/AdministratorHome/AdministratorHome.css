@@ -1,0 +1,81 @@
+.adminHome {
+    color: white;
+    font-size: 30px;
+    text-align: center;
+    font-weight: bolder;
+}
+
+.card1 {
+    color: white;
+    font-size: 23px;
+    text-align: center;
+    background-color: transparent;
+    border: #C62E65 5px solid;
+    margin-top: 5px;
+    margin-left: 30px;
+}
+
+.card1:hover {
+    background-color: white;
+    color: #333
+}
+
+.card2 {
+    color: white;
+    font-size: 23px;
+    text-align: center;
+    background-color: transparent;
+    border: #C62E65 5px solid;
+    margin-left: 450px;
+}
+
+.card2:hover {
+    background-color: white;
+    color: #333
+}
+
+.card3 {
+    color: white;
+    font-size: 23px;
+    text-align: center;
+    background-color: transparent;
+    border: #C62E65 5px solid;
+    margin-left: 870px;
+}
+
+.card3:hover {
+    background-color: white;
+    color: #333
+}
+
+.opacity {
+    opacity: 0.09
+}
+
+.text-categories {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-weight: bolder;
+}
+
+.text-products {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-weight: bolder;
+}
+
+.text-orders {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-weight: bolder;
+}
+
+.link-2 {
+    color: #C62E65;
+    font-weight: bolder;
+}
+
+.link-2:hover {
+    color: #C62E65;
+    font-weight: bolder;
+}
