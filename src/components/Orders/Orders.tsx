@@ -1,4 +1,4 @@
-import { faCalendarAlt, faShippingFast, faShoppingBasket, faShoppingBag, faInfo, faMousePointer } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarAlt, faShippingFast, faShoppingBasket, faShoppingBag, faInfo, faMousePointer, faMinus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Card, Container, Modal, Table, Button } from 'react-bootstrap';
@@ -51,10 +51,18 @@ interface OrderDto {
     };
 }
 
-export default class Order extends React.Component {
+interface OrdersProp {
+    match: {
+        params: {
+            id: number;
+        }
+    }
+}
+
+export default class Order extends React.Component<OrdersProp> {
     state: OrderState;
 
-    constructor(props: Readonly<{}>) {
+    constructor(props: Readonly<OrdersProp>) {
         super(props);
         
         this.state = {
@@ -252,6 +260,9 @@ export default class Order extends React.Component {
                                     <th>
                                     <FontAwesomeIcon icon={ faMousePointer } color ="white" size="lg"></FontAwesomeIcon> More information
                                     </th>
+                                    <th>
+                                    <FontAwesomeIcon icon={ faTrash } color ="white" size="lg"></FontAwesomeIcon> Order cancellation
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -351,8 +362,30 @@ export default class Order extends React.Component {
                         <FontAwesomeIcon size="lg" icon={ faInfo }/>
                 </Button>
                 </td>
+                <td>
+                <Button className="button-customer-delete" block
+                        onClick={ () => this.deleteOrder(order.orderId) }  disabled = { order.orderStatus === 'shipped' }>
+                     <FontAwesomeIcon icon={ faMinus } />
+                </Button>
+                </td>
             </tr>
         );
+    }
+
+    private deleteOrder(orderId: number) {
+        if (!window.confirm('Are you sure?')) {
+            return;
+        }
+
+        api('/api/order/' + orderId + '/', 'delete', {}, 'customer')
+        .then((res: ApiResponse) => {
+            if (res.status === "error" || res.status === "login") {
+                this.setLogginState(false);
+                return;
+            }
+
+            this.getCustomerOrders();
+        })
     }
 
 }

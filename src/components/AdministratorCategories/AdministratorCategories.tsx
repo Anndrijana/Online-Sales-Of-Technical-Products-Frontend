@@ -1,17 +1,20 @@
 import React from 'react';
-import { Container, Card, Table, Button, Modal, Form, Alert } from 'react-bootstrap';
-import { faListAlt, faPlus, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { Container, Card, Table, Button, Modal, Form, Alert, InputGroup, FormControl } from 'react-bootstrap';
+import { faListAlt, faPlus, faEdit, faStepForward, faStepBackward, faFastBackward, faFastForward } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Redirect } from 'react-router-dom';
-import api, { ApiResponse } from '../../api/api';
-import CategoryType from '../../types/CategoryType';
-import RoledNavbar from '../RoledNavbar/RoledNavbar';
-import ApiCategoryDto from '../../dtos/CategoryDto';
 import './AdministratorCategories.css';
+import CategoryType from '../../types/CategoryType';
+import api, { ApiResponse } from '../../api/api';
+import ApiCategoryDto from '../../dtos/CategoryDto';
+import RoledNavbar from '../RoledNavbar/RoledNavbar';
+
 
 interface AdministratorCategoriesState {
     isAdministratorLoggedIn: boolean;
     categories: CategoryType[];
+    currentPage: number;
+    catPerPage: number;
 
     addModal: {
         visible: boolean;
@@ -40,6 +43,8 @@ class AdministratorCategories extends React.Component {
         this.state = {
             isAdministratorLoggedIn: true,
             categories: [],
+            currentPage: 1,
+            catPerPage: 5,
 
             addModal: {
                 visible: false,
@@ -146,12 +151,57 @@ class AdministratorCategories extends React.Component {
         }));
     }
 
+    private changePage(event: React.ChangeEvent<HTMLInputElement>) {
+        this.setState({
+            [event.target.name]: parseInt(event.target.value)
+        });
+    }
+
+    firstPage = () => {
+        if(this.state.currentPage > 1) {
+            this.setState({
+                currentPage: 1
+            });
+        }
+    };
+
+    prevPage = () => {
+        if(this.state.currentPage > 1) {
+            this.setState({
+                currentPage: this.state.currentPage - 1
+            });
+        }
+    };
+
+    lastPage = () => {
+        if(this.state.currentPage < Math.ceil(this.state.categories.length / this.state.catPerPage)) {
+            this.setState({
+                currentPage: Math.ceil(this.state.categories.length / this.state.catPerPage)
+            });
+        }
+    };
+
+    nextPage = () => {
+        if(this.state.currentPage < Math.ceil(this.state.categories.length / this.state.catPerPage)) {
+            this.setState({
+                currentPage: this.state.currentPage + 1
+            });
+        }
+    };
+
     render() {
         if (this.state.isAdministratorLoggedIn === false) {
             return (
                 <Redirect to="/admin/login" />
             );
         }
+
+        const {categories, currentPage, catPerPage} = this.state;
+        const lastIndex = currentPage * catPerPage;
+        const firstIndex = lastIndex - catPerPage;
+        const currentCat = categories.slice(firstIndex, lastIndex);
+
+        const totalPages = Math.floor(categories.length / catPerPage)+1;
 
         return (
             <Container>
@@ -162,6 +212,9 @@ class AdministratorCategories extends React.Component {
                         <Card.Title>
                             <FontAwesomeIcon icon={ faListAlt } color="#149dff" size="lg"/> List of all categories
                         </Card.Title>
+                        <div className="totalPages">
+                                Showing page {currentPage} of {totalPages}
+                        </div>
 
                         <Table className="admin-table" hover size="sm" bordered>
                             <thead>
@@ -183,8 +236,8 @@ class AdministratorCategories extends React.Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                { this.state.categories.map(category => (
-                                    <tr>
+                                { currentCat.map((category, index) => (
+                                    <tr key = {index}>
                                         <td className="text-right">{ category.categoryId }</td>
                                         <td> <img className="img-admin"src={ category.imagePath } alt="" width="200px"></img> </td>
                                         <td>{ category.categoryName }</td>
@@ -201,6 +254,35 @@ class AdministratorCategories extends React.Component {
                             </tbody>
                         </Table>
                     </Card.Body>
+
+                    <Card.Footer className="pagination">
+                            <div style={{"float":"right"}}>
+                                <InputGroup size="sm">
+                                    <InputGroup.Prepend>
+                                        <Button type="button" variant="outline-info" disabled={currentPage === 1 ? true : false}
+                                            onClick={ this.firstPage } >
+                                            <FontAwesomeIcon icon={faFastBackward} /> First
+                                        </Button>
+                                        <Button type="button" variant="outline-info" disabled={currentPage === 1 ? true : false}
+                                            onClick={ this.prevPage}>
+                                            <FontAwesomeIcon icon={faStepBackward} /> Prev
+                                        </Button>
+                                    </InputGroup.Prepend>
+                                    <FormControl className="currentPage" name="currentPage" value={currentPage}
+                                        onChange={ () => this.changePage} />
+                                    <InputGroup.Append>
+                                        <Button type="button" variant="outline-info" disabled={currentPage === totalPages ? true : false}
+                                            onClick={ this.nextPage}>
+                                            <FontAwesomeIcon icon={faStepForward} /> Next
+                                        </Button>
+                                        <Button type="button" variant="outline-info" disabled={currentPage === totalPages ? true : false}
+                                            onClick={ this.lastPage}>
+                                            <FontAwesomeIcon icon={faFastForward} /> Last
+                                        </Button>
+                                    </InputGroup.Append>
+                                </InputGroup>
+                            </div>
+                    </Card.Footer>
                 </Card>
 
                 <Modal size="lg" centered show={ this.state.addModal.visible } onHide={ () => this.setAddModalVisibleState(false) }>
