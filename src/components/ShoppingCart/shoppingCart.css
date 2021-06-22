@@ -44,6 +44,7 @@ tr:hover>td {
     background: #149dff;
     color: #fff;
     font-weight: bold;
+    border: transparent;
 }
 
 tfoot {

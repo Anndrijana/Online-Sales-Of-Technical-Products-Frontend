@@ -7,6 +7,7 @@ import api, { ApiResponse } from '../../api/api';
 import CategoryType from '../../types/CategoryType';
 import RoledNavbar from '../RoledNavbar/RoledNavbar';
 import ApiCategoryDto from '../../dtos/CategoryDto';
+import './AdministratorCategories.css';
 
 interface AdministratorCategoriesState {
     isAdministratorLoggedIn: boolean;
@@ -156,27 +157,28 @@ class AdministratorCategories extends React.Component {
             <Container>
                 <RoledNavbar role="administrator" />
 
-                <Card>
+                <Card className="card-admin">
                     <Card.Body>
                         <Card.Title>
-                            <FontAwesomeIcon icon={ faListAlt } color="#C62E65"/> List of all categories
+                            <FontAwesomeIcon icon={ faListAlt } color="#149dff" size="lg"/> List of all categories
                         </Card.Title>
 
-                        <Table hover size="sm" bordered>
+                        <Table className="admin-table"hover size="sm" bordered>
                             <thead>
                                 <tr>
-                                    <th colSpan={ 3 }></th>
+                                    <th colSpan={ 4 }></th>
                                     <th className="text-center">
-                                        <Button variant="primary" size="sm"
+                                        <Button className="button-admin" variant="primary" size="sm"
                                             onClick={ () => this.showAddModal() }>
                                             <FontAwesomeIcon icon={ faPlus } /> Add
                                         </Button>
                                     </th>
                                 </tr>
-                                <tr>
-                                    <th className="text-right">ID</th>
-                                    <th>Name</th>
-                                    <th className="text-right">Parent ID</th>
+                                <tr className="tr-admin">
+                                    <th className="text-right">Category ID</th>
+                                    <th className="text-right">Image</th>
+                                    <th>Category name</th>
+                                    <th className="text-right">Parent category ID</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -184,11 +186,12 @@ class AdministratorCategories extends React.Component {
                                 { this.state.categories.map(category => (
                                     <tr>
                                         <td className="text-right">{ category.categoryId }</td>
+                                        <td> <img className="img-admin"src={ category.imagePath } alt="" width="200px"></img> </td>
                                         <td>{ category.categoryName }</td>
                                         <td className="text-right">{ category.parentCategoryId }</td>
                                         <td className="text-center">
 
-                                            <Button variant="info" size="sm"
+                                            <Button className="button-admin" variant="info" size="sm"
                                                 onClick={ () => this.showEditModal(category) }>
                                                 <FontAwesomeIcon icon={ faEdit } /> Edit
                                             </Button>
@@ -202,21 +205,21 @@ class AdministratorCategories extends React.Component {
 
                 <Modal size="lg" centered show={ this.state.addModal.visible } onHide={ () => this.setAddModalVisibleState(false) }>
                     <Modal.Header closeButton>
-                        <Modal.Title>Add new category</Modal.Title>
+                        <Modal.Title className="admin-title">Add new category</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>
+                    <Modal.Body className="modal-admin" >
                         <Form.Group>
-                            <Form.Label htmlFor="categoryName">Name</Form.Label>
+                            <Form.Label htmlFor="categoryName">Category name:</Form.Label>
                             <Form.Control id="categoryName" type="text" value={ this.state.addModal.categoryName }
                                 onChange={ (e) => this.setAddModalStringFieldState('categoryName', e.target.value) } />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label htmlFor="imagePath">Image URL</Form.Label>
+                            <Form.Label htmlFor="imagePath">Image URL:</Form.Label>
                             <Form.Control id="imagePath" type="url" value={ this.state.addModal.imagePath }
                                 onChange={ (e) => this.setAddModalStringFieldState('imagePath', e.target.value) } />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label htmlFor="parentCategoryId">Parent category</Form.Label>
+                            <Form.Label htmlFor="parentCategoryId">Parent category:</Form.Label>
                             <Form.Control id="parentCategoryId" as="select" value={ this.state.addModal.parentCategoryId?.toString() }
                                 onChange={ (e) => this.setAddModalNumberFieldState('parentCategoryId', e.target.value) }>
                                 <option value="null">No parent category</option>
@@ -228,8 +231,8 @@ class AdministratorCategories extends React.Component {
                             </Form.Control>
                         </Form.Group>
                         <Form.Group>
-                            <Button variant="primary" onClick={ () => this.doAddCategory() }>
-                                <FontAwesomeIcon icon={ faPlus } /> Add new category
+                            <Button className="button-admin-modal" variant="primary" onClick={ () => this.doAddCategory() }>
+                                <FontAwesomeIcon icon={ faPlus } /> Add
                             </Button>
                         </Form.Group>
                         { this.state.addModal.message ? (
@@ -240,9 +243,9 @@ class AdministratorCategories extends React.Component {
 
                 <Modal size="lg" centered show={ this.state.editModal.visible } onHide={ () => this.setEditModalVisibleState(false) }>
                     <Modal.Header closeButton>
-                        <Modal.Title>Edit category</Modal.Title>
+                        <Modal.Title className="admin-title2">Edit old category</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>
+                    <Modal.Body className="modal-admin">
                         <Form.Group>
                             <Form.Label htmlFor="categoryName">Name</Form.Label>
                             <Form.Control id="categoryName" type="text" value={ this.state.editModal.categoryName }
@@ -268,8 +271,8 @@ class AdministratorCategories extends React.Component {
                             </Form.Control>
                         </Form.Group>
                         <Form.Group>
-                            <Button variant="primary" onClick={ () => this.doEditCategory() }>
-                                <FontAwesomeIcon icon={ faEdit } /> Edit category
+                            <Button className="button-admin-modal" variant="primary" onClick={ () => this.doEditCategory() }>
+                                <FontAwesomeIcon icon={ faEdit } /> Edit
                             </Button>
                         </Form.Group>
                         { this.state.editModal.message ? (

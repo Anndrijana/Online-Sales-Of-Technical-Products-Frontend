@@ -1,0 +1,57 @@
+.admin-table {
+    border: transparent;
+    border-bottom: white;
+}
+
+.tr-admin {
+    background-color: #149dff;
+    color: white;
+    font-weight: bolder;
+    font-size: 20px;
+}
+
+.button-admin {
+    width: 75%;
+    font-size: 18px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.img-admin {
+    border-radius: 50%;
+}
+
+.card-admin {
+    border: transparent;
+}
+
+.modal-admin {
+    background-image: linear-gradient(#149dff, white);
+    border: transparent;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.admin-title {
+    font-weight: bold;
+}
+
+.admin-title2 {
+    font-weight: bold;
+    font-size: 35px;
+}
+
+.button-admin-modal {
+    width: 20%;
+    font-size: 18px;
+    margin-left: 390px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.button-admin:hover, .button-admin:focus {
+    color: white
+}
+
+
