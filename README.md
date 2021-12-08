@@ -1,6 +1,10 @@
-# Getting Started with Create React App
+### :wrench: Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## :camera: Some photos of the web application:
+
+### 
 
 ## Available Scripts
 
