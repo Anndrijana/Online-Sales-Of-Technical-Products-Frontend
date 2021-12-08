@@ -1,6 +1,6 @@
 import React from 'react';
-import { Container, Card, Table, Button, Modal, Form, Alert } from 'react-bootstrap';
-import { faListAlt, faPlus, faEdit, faSave, faImages } from '@fortawesome/free-solid-svg-icons';
+import { Container, Card, Table, Button, Modal, Form, Alert, InputGroup, FormControl } from 'react-bootstrap';
+import { faListAlt, faPlus, faEdit, faSave, faImages, faFastBackward, faStepForward, faStepBackward, faFastForward } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Redirect, Link } from 'react-router-dom';
 import api, { ApiResponse, apiFile } from '../../api/api';
@@ -16,6 +16,8 @@ interface AdministratorProductState {
     products: ProductType[];
     categories: CategoryType[];
     status: string[];
+    currentPage: number;
+    prodPerPage: number;
 
     addModal: {
         visible: boolean;
@@ -60,6 +62,8 @@ class AdministratorProducts extends React.Component {
                 "visible",
                 "hidden",
             ],
+            currentPage: 1,
+            prodPerPage: 3,
 
             addModal: {
                 visible: false,
@@ -215,12 +219,57 @@ class AdministratorProducts extends React.Component {
         this.setAddModalNumberFieldState('categoryId', event.target.value);
     }
 
+    private changePage(event: React.ChangeEvent<HTMLInputElement>) {
+        this.setState({
+            [event.target.name]: parseInt(event.target.value)
+        });
+    }
+
+    firstPage = () => {
+        if(this.state.currentPage > 1) {
+            this.setState({
+                currentPage: 1
+            });
+        }
+    };
+
+    prevPage = () => {
+        if(this.state.currentPage > 1) {
+            this.setState({
+                currentPage: this.state.currentPage - 1
+            });
+        }
+    };
+
+    lastPage = () => {
+        if(this.state.currentPage < Math.ceil(this.state.products.length / this.state.prodPerPage)) {
+            this.setState({
+                currentPage: Math.ceil(this.state.products.length / this.state.prodPerPage)
+            });
+        }
+    };
+
+    nextPage = () => {
+        if(this.state.currentPage < Math.ceil(this.state.products.length / this.state.prodPerPage)) {
+            this.setState({
+                currentPage: this.state.currentPage + 1
+            });
+        }
+    };
+
     render() {
         if (this.state.isAdministratorLoggedIn === false) {
             return (
                 <Redirect to="/admin/login" />
             );
         }
+
+        const {products, currentPage, prodPerPage} = this.state;
+        const lastIndex = currentPage * prodPerPage;
+        const firstIndex = lastIndex - prodPerPage;
+        const currentProd = products.slice(firstIndex, lastIndex);
+
+        const totalPages = Math.floor(products.length / prodPerPage)+1;
 
         return (
             <Container>
@@ -231,6 +280,10 @@ class AdministratorProducts extends React.Component {
                         <Card.Title>
                             <FontAwesomeIcon icon={ faListAlt } color="#149dff" size="lg"/> List of all products
                         </Card.Title>
+
+                        <div className="totalPages">
+                                Showing page {currentPage} of {totalPages}
+                        </div>
 
                         <Table className="admin-table" hover size="sm" bordered>
                             <thead>
@@ -258,8 +311,8 @@ class AdministratorProducts extends React.Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                { this.state.products.map(product => (
-                                    <tr>
+                                { currentProd.map((product, index) => (
+                                    <tr key = {index}>
                                         <td className="text-right">{ product.productId }</td>
                                         <td>{ product.productName }</td>
                                         <td>{ product.category?.categoryName }</td>
@@ -280,12 +333,43 @@ class AdministratorProducts extends React.Component {
                                                 onClick={ () => this.showEditModal(product) }>
                                                 <FontAwesomeIcon icon={ faEdit } /> Edit
                                             </Button>
+
+
                                         </td>
-                                    </tr>
+                                    </tr> 
                                 ), this) }
                             </tbody>
                         </Table>
                     </Card.Body>
+
+                    <Card.Footer className="pagination">
+                            <div style={{"float":"right"}}>
+                                <InputGroup size="sm">
+                                    <InputGroup.Prepend>
+                                        <Button type="button" variant="outline-info" disabled={currentPage === 1 ? true : false}
+                                            onClick={ this.firstPage } >
+                                            <FontAwesomeIcon icon={faFastBackward} /> First
+                                        </Button>
+                                        <Button type="button" variant="outline-info" disabled={currentPage === 1 ? true : false}
+                                            onClick={ this.prevPage}>
+                                            <FontAwesomeIcon icon={faStepBackward} /> Prev
+                                        </Button>
+                                    </InputGroup.Prepend>
+                                    <FormControl className="currentPage" name="currentPage" value={currentPage}
+                                        onChange={ () => this.changePage} />
+                                    <InputGroup.Append>
+                                        <Button type="button" variant="outline-info" disabled={currentPage === totalPages ? true : false}
+                                            onClick={ this.nextPage}>
+                                            <FontAwesomeIcon icon={faStepForward} /> Next
+                                        </Button>
+                                        <Button type="button" variant="outline-info" disabled={currentPage === totalPages ? true : false}
+                                            onClick={ this.lastPage}>
+                                            <FontAwesomeIcon icon={faFastForward} /> Last
+                                        </Button>
+                                    </InputGroup.Append>
+                                </InputGroup>
+                            </div>
+                    </Card.Footer>
                 </Card>
 
                 <Modal size="lg" centered show={ this.state.addModal.visible }
@@ -515,6 +599,7 @@ class AdministratorProducts extends React.Component {
             this.getProducts();
         });
     }
+
 }
 
 export default AdministratorProducts;
