@@ -29,17 +29,35 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ### :house_with_garden: Home page view after logging in (Carousels first slide)
 
+![54](https://user-images.githubusercontent.com/61964257/145255550-e503cba7-8746-4b75-a6eb-e5342df78e2b.PNG)
 
-
-### :house_with_garden: Home page view after logging in (Carousels first slide)
+### :1234: Laptops/Notebooks subcategory view by a registered user
 
 ![44](https://user-images.githubusercontent.com/61964257/145252056-34364178-ee24-414b-9bda-73ec000ed540.PNG)
 
+### :mag_right: More detailed product information 
+
 ![45](https://user-images.githubusercontent.com/61964257/145252060-3a8b463c-7b57-4fb3-ae3e-6c831b30c461.PNG)
+
+### :handbag: User shopping cart
+
 ![46](https://user-images.githubusercontent.com/61964257/145252065-710f0324-5ade-4f6e-8df0-d24077041d8a.PNG)
+
+### :symbols: List of all previously created orders
+
 ![47](https://user-images.githubusercontent.com/61964257/145252067-0dc87872-9946-42b2-b5fa-44546d629e86.PNG)
+
+## The role of Administrator
+### :house_with_garden: Administrator home page
+
 ![48](https://user-images.githubusercontent.com/61964257/145252071-ccf56495-1e19-43af-a03a-88d913a6cd1a.PNG)
+
+### :unlock: List of all existing categories and subcategories in the system and Pagination
+
 ![49](https://user-images.githubusercontent.com/61964257/145252074-2e333193-231a-4a44-b7cd-cd049f78c048.PNG)
+
+### :heavy_minus_sign: Delete product photos
+
 ![50](https://user-images.githubusercontent.com/61964257/145252078-68f4d74c-52ff-40b8-aa95-ba3fdad7ad01.PNG)
 
 ## Available Scripts
