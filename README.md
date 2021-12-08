@@ -29,7 +29,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ### :house_with_garden: Home page view after logging in (Carousels first slide)
 
-![43](https://user-images.githubusercontent.com/61964257/145252054-b009398f-f204-497c-a300-de69aa39f34c.PNG)
+
 
 ### :house_with_garden: Home page view after logging in (Carousels first slide)
 
