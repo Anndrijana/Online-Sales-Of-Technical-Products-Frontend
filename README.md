@@ -11,7 +11,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ### :new_moon: Dark mode
 
-![39](https://user-images.githubusercontent.com/61964257/145252046-f4de0aed-ea9d-46e0-a2fd-3d01187fe89c.PNG)
+![52](https://user-images.githubusercontent.com/61964257/145254240-42fbec02-d942-49db-9d09-b196880b69c0.PNG)
 
 ### :busts_in_silhouette: User registration form
 
@@ -24,8 +24,17 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ### :no_entry_sign: Laptops/Notebooks subcategory view by an unregistered user
 
 ![42](https://user-images.githubusercontent.com/61964257/145252053-66550457-c11d-48da-bd65-8b45d152ed76.PNG)
+
+## The role of Registered user
+
+### :house_with_garden: Home page view after logging in (Carousels first slide)
+
 ![43](https://user-images.githubusercontent.com/61964257/145252054-b009398f-f204-497c-a300-de69aa39f34c.PNG)
+
+### :house_with_garden: Home page view after logging in (Carousels first slide)
+
 ![44](https://user-images.githubusercontent.com/61964257/145252056-34364178-ee24-414b-9bda-73ec000ed540.PNG)
+
 ![45](https://user-images.githubusercontent.com/61964257/145252060-3a8b463c-7b57-4fb3-ae3e-6c831b30c461.PNG)
 ![46](https://user-images.githubusercontent.com/61964257/145252065-710f0324-5ade-4f6e-8df0-d24077041d8a.PNG)
 ![47](https://user-images.githubusercontent.com/61964257/145252067-0dc87872-9946-42b2-b5fa-44546d629e86.PNG)
