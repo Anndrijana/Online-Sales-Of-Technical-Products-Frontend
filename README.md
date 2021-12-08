@@ -4,12 +4,25 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## :camera: Some photos of the web application:
 
-###
+## The role of Visitor
+### :full_moon: Light mode
 
 ![38](https://user-images.githubusercontent.com/61964257/145252041-c50d6aef-6d3b-43f6-947f-3c9ca80bdc05.PNG)
+
+### :new_moon: Dark mode
+
 ![39](https://user-images.githubusercontent.com/61964257/145252046-f4de0aed-ea9d-46e0-a2fd-3d01187fe89c.PNG)
+
+### :busts_in_silhouette: User registration form
+
 ![40](https://user-images.githubusercontent.com/61964257/145252050-381c4c94-845d-4442-b907-3ce534264ad7.PNG)
+
+### :1234: List of all major categories
+
 ![41](https://user-images.githubusercontent.com/61964257/145252051-5eefabfa-82fe-4fa4-b193-8605160d62d8.PNG)
+
+### :no_entry_sign: Laptops/Notebooks subcategory view by an unregistered user
+
 ![42](https://user-images.githubusercontent.com/61964257/145252053-66550457-c11d-48da-bd65-8b45d152ed76.PNG)
 ![43](https://user-images.githubusercontent.com/61964257/145252054-b009398f-f204-497c-a300-de69aa39f34c.PNG)
 ![44](https://user-images.githubusercontent.com/61964257/145252056-34364178-ee24-414b-9bda-73ec000ed540.PNG)
