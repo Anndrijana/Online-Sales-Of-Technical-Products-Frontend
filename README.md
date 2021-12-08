@@ -58,7 +58,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ### :heavy_minus_sign: Delete product photos
 
-![50](https://user-images.githubusercontent.com/61964257/145252078-68f4d74c-52ff-40b8-aa95-ba3fdad7ad01.PNG)
+![55](https://user-images.githubusercontent.com/61964257/145259237-9207e6d6-e5e0-4ace-8a1b-05dd8c7555ae.PNG)
 
 ## Available Scripts
 
