@@ -4,7 +4,21 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## :camera: Some photos of the web application:
 
-### 
+###
+
+![38](https://user-images.githubusercontent.com/61964257/145252041-c50d6aef-6d3b-43f6-947f-3c9ca80bdc05.PNG)
+![39](https://user-images.githubusercontent.com/61964257/145252046-f4de0aed-ea9d-46e0-a2fd-3d01187fe89c.PNG)
+![40](https://user-images.githubusercontent.com/61964257/145252050-381c4c94-845d-4442-b907-3ce534264ad7.PNG)
+![41](https://user-images.githubusercontent.com/61964257/145252051-5eefabfa-82fe-4fa4-b193-8605160d62d8.PNG)
+![42](https://user-images.githubusercontent.com/61964257/145252053-66550457-c11d-48da-bd65-8b45d152ed76.PNG)
+![43](https://user-images.githubusercontent.com/61964257/145252054-b009398f-f204-497c-a300-de69aa39f34c.PNG)
+![44](https://user-images.githubusercontent.com/61964257/145252056-34364178-ee24-414b-9bda-73ec000ed540.PNG)
+![45](https://user-images.githubusercontent.com/61964257/145252060-3a8b463c-7b57-4fb3-ae3e-6c831b30c461.PNG)
+![46](https://user-images.githubusercontent.com/61964257/145252065-710f0324-5ade-4f6e-8df0-d24077041d8a.PNG)
+![47](https://user-images.githubusercontent.com/61964257/145252067-0dc87872-9946-42b2-b5fa-44546d629e86.PNG)
+![48](https://user-images.githubusercontent.com/61964257/145252071-ccf56495-1e19-43af-a03a-88d913a6cd1a.PNG)
+![49](https://user-images.githubusercontent.com/61964257/145252074-2e333193-231a-4a44-b7cd-cd049f78c048.PNG)
+![50](https://user-images.githubusercontent.com/61964257/145252078-68f4d74c-52ff-40b8-aa95-ba3fdad7ad01.PNG)
 
 ## Available Scripts
 
